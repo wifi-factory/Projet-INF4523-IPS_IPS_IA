@@ -1,0 +1,7 @@
+campaign_id,run_index,scenario_id,scenario_family,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+smoke_v1_20260328_0156,1,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,smoke_v1_20260328_0156_N20_run01.pcap,2026-03-28T11:56:37Z,3528,ok,ubuntu short http burst to meta2
+smoke_v1_20260328_0156,1,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,smoke_v1_20260328_0156_N22_run01.pcap,2026-03-28T11:57:59Z,1191,ok,ubuntu dns burst to kali dnsmasq
+smoke_v1_20260328_0156,1,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,smoke_v1_20260328_0156_N23_run01.pcap,2026-03-28T12:14:56Z,6113,ok,ubuntu repeated ssh one-shot to meta3
+smoke_v1_20260328_0156,1,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,smoke_v1_20260328_0156_N30_run01.pcap,2026-03-28T12:19:44Z,4790,ok,ubuntu short https burst to meta3
+smoke_v1_20260328_0156,1,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,smoke_v1_20260328_0156_S20_run01.pcap,2026-03-28T12:21:44Z,2016,ok,kali syn scan meta2 ports 1-1000
+smoke_v1_20260328_0156,1,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.24,smoke_v1_20260328_0156_S24_run01.pcap,2026-03-28T12:22:06Z,280,ok,kali repeated failed tcp connect meta3 port 65000

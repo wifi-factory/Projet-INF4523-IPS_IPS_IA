@@ -1,0 +1,3 @@
+campaign_id,run_index,scenario_id,scenario_family,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+smoke_v1_fast_20260328_0200,1,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,smoke_v1_fast_20260328_0200_N22_run01.pcap,2026-03-28T12:27:34Z,1112,ok,ubuntu dns burst to kali dnsmasq
+smoke_v1_fast_20260328_0200,1,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,smoke_v1_fast_20260328_0200_S24_run01.pcap,2026-03-28T12:33:25Z,412,ok,kali repeated failed tcp connect meta2 port 65000

@@ -2,10 +2,10 @@ __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-.pytest_cache/
 .venv/
 venv/
 env/
+.pytest_cache/
 .idea/
 .vscode/
 .DS_Store
@@ -29,10 +29,9 @@ pip-wheel-metadata/
 *.swp
 *.swo
 
-# Generated outputs
-backend/.pytest_cache/
-
 # Keep repository data/model/docs placeholders, but ignore large generated copies
 data/generated/
 models/generated/
 docs/generated/
+*.pcap
+*.pcapng

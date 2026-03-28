@@ -1,0 +1,9 @@
+{
+  "campaign_id": "second_campaign_20260327_2220",
+  "capture_count": 22,
+  "flow_count": 856,
+  "label_counts": {
+    "normal": 12,
+    "suspect": 10
+  }
+}

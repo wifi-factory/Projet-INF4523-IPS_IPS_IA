@@ -1,0 +1,45 @@
+{
+  "source_split_dir": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\data\\lab_v2\\prepared\\post_v1_20260328_1105",
+  "excluded_statuses": [
+    "scenario_error"
+  ],
+  "cap_plan": {
+    "N20": 150,
+    "N21": 150,
+    "N22": 250,
+    "N23": 120,
+    "N24": 100,
+    "N30": 160,
+    "S20": 400,
+    "S21": 600,
+    "S22": 300,
+    "S24": 180,
+    "S25": 180
+  },
+  "train_source_rows": 38305,
+  "train_capped_rows": 17090,
+  "train_balanced_rows": 14132,
+  "train_source_label_counts": {
+    "suspect": 24230,
+    "normal": 14075
+  },
+  "train_capped_label_counts": {
+    "suspect": 10024,
+    "normal": 7066
+  },
+  "train_balanced_label_counts": {
+    "normal": 7066,
+    "suspect": 7066
+  },
+  "validation_clean_rows": 6982,
+  "validation_clean_label_counts": {
+    "normal": 4981,
+    "suspect": 2001
+  },
+  "test_clean_rows": 7030,
+  "test_clean_label_counts": {
+    "normal": 5217,
+    "suspect": 1813
+  },
+  "excluded_capture_count": 10
+}

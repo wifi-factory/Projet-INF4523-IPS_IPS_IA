@@ -37,3 +37,11 @@ class BlockingError(ApplicationError):
 
 class ReplayError(ApplicationError):
     status_code = 409
+
+
+class CaptureError(ApplicationError):
+    status_code = 500
+
+
+class LiveRuntimeError(ApplicationError):
+    status_code = 409

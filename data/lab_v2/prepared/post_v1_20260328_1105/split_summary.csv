@@ -1,0 +1,7 @@
+split,label_binary,capture_count
+test,normal,21
+test,suspect,9
+train,normal,95
+train,suspect,45
+validation,normal,20
+validation,suspect,10

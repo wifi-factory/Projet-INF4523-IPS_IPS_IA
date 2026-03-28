@@ -9,11 +9,19 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator
 class BlockingMode(str, Enum):
     DRY_RUN = "dry_run"
     SYSTEM_STUB = "system_stub"
+    ENFORCE = "enforce"
 
 
 class ReplaySplit(str, Enum):
     VALIDATION = "validation"
     TEST = "test"
+
+
+class LiveRuntimeStatus(str, Enum):
+    STOPPED = "stopped"
+    RUNNING = "running"
+    STOPPING = "stopping"
+    ERROR = "error"
 
 
 class OperationalMetadata(BaseModel):
@@ -72,6 +80,7 @@ class BlockingDecisionResponse(BaseModel):
     mode: BlockingMode
     predicted_label: str
     confidence: float | None = None
+    threshold_source: str | None = None
     reason: str
     source_ip: str | None = None
     destination_ip: str | None = None
@@ -86,7 +95,10 @@ class FlowDetectionResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     predicted_label: str
+    raw_predicted_label: str
     is_suspect: bool
+    alert_triggered: bool
+    block_threshold_met: bool
     confidence: float | None = None
     probability: dict[str, float] | None = None
     decision_mode: str
@@ -200,3 +212,78 @@ class ReplayStatusResponse(BaseModel):
     started_at: str | None = None
     completed_at: str | None = None
     last_event_at: str | None = None
+
+
+class LiveStartRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    interface_name: str | None = None
+    capture_filter: str | None = None
+    flush_interval_seconds: float | None = None
+    blocking_mode: BlockingMode | None = None
+
+    @field_validator("interface_name")
+    @classmethod
+    def validate_interface_name(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        stripped = value.strip()
+        if not stripped:
+            raise ValueError("interface_name must not be empty when provided.")
+        return stripped
+
+    @field_validator("capture_filter")
+    @classmethod
+    def validate_capture_filter(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        stripped = value.strip()
+        return stripped or None
+
+    @field_validator("flush_interval_seconds")
+    @classmethod
+    def validate_flush_interval(cls, value: float | None) -> float | None:
+        if value is not None and value <= 0:
+            raise ValueError("flush_interval_seconds must be greater than zero.")
+        return value
+
+
+class LiveStatusResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: LiveRuntimeStatus
+    running: bool = False
+    session_id: str | None = None
+    interface_name: str | None = None
+    capture_filter: str = ""
+    blocking_mode: BlockingMode = BlockingMode.DRY_RUN
+    alert_confidence_threshold: float | None = None
+    block_confidence_threshold: float | None = None
+    started_at: str | None = None
+    stopped_at: str | None = None
+    last_event_at: str | None = None
+    uptime_seconds: float = 0.0
+    packets_captured: int = 0
+    packets_ignored: int = 0
+    packet_parse_errors: int = 0
+    active_flows: int = 0
+    finalized_flows: int = 0
+    predictions: int = 0
+    alerts: int = 0
+    block_decisions: int = 0
+    last_predicted_label: str | None = None
+    last_confidence: float | None = None
+    last_errors: list[str] = Field(default_factory=list)
+
+
+class LiveInterfaceInfo(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    index: str
+    label: str
+
+
+class LiveInterfacesResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    interfaces: list[LiveInterfaceInfo] = Field(default_factory=list)

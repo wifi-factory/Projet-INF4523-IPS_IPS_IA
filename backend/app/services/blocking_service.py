@@ -6,7 +6,7 @@ from uuid import uuid4
 from ..config import Settings
 from ..core.logging import get_logger
 from ..models.api_models import BlockingDecisionResponse, BlockingMode, OperationalMetadata
-from ..utils.firewall_utils import build_firewall_command_preview
+from ..utils.firewall_utils import apply_firewall_command, build_firewall_command_preview
 from ..utils.time_utils import utc_now_iso
 from .schema_service import SchemaService
 
@@ -25,10 +25,13 @@ class BlockingService:
         operational_metadata: OperationalMetadata | None = None,
         flow_features: Mapping[str, Any] | None = None,
         blocking_mode: BlockingMode | str | None = None,
+        block_threshold_met: bool = True,
+        threshold_source: str | None = None,
     ) -> BlockingDecisionResponse:
         mode = self._resolve_mode(blocking_mode)
         contract = self.schema_service.get_contract()
-        triggered = predicted_label == contract.positive_label
+        is_suspect = predicted_label == contract.positive_label
+        triggered = is_suspect and block_threshold_met
         flow_features = flow_features or {}
 
         source_ip = operational_metadata.src_ip if operational_metadata else None
@@ -38,7 +41,7 @@ class BlockingService:
         protocol = self._extract_text(flow_features, "protocol")
 
         command_preview = None
-        if triggered:
+        if is_suspect:
             command_preview = build_firewall_command_preview(
                 source_ip=source_ip,
                 destination_ip=destination_ip,
@@ -47,17 +50,28 @@ class BlockingService:
                 destination_port=destination_port,
             )
 
-        reason = (
-            "post-flow-classification suspect decision"
-            if triggered
-            else "no blocking action for non-suspect classification"
-        )
+        effective_mode = mode
+        if not is_suspect:
+            reason = "no blocking action for non-suspect classification"
+        elif not block_threshold_met:
+            reason = "suspect classification below block confidence threshold"
+        elif mode == BlockingMode.ENFORCE:
+            applied, detail = apply_firewall_command(command_preview or "")
+            if applied:
+                reason = "post-flow-classification suspect decision"
+            else:
+                effective_mode = BlockingMode.DRY_RUN
+                reason = detail
+        else:
+            reason = "post-flow-classification suspect decision"
+
         response = BlockingDecisionResponse(
             block_id=str(uuid4()),
             triggered=triggered,
-            mode=mode,
+            mode=effective_mode,
             predicted_label=predicted_label,
             confidence=confidence,
+            threshold_source=threshold_source,
             reason=reason,
             source_ip=source_ip,
             destination_ip=destination_ip,
@@ -70,13 +84,16 @@ class BlockingService:
         self.logger.info(
             "Blocking decision evaluated",
             extra={
-                "context": {
-                    "triggered": triggered,
-                    "mode": response.mode.value,
-                    "predicted_label": predicted_label,
-                    "source_ip": source_ip,
-                    "destination_ip": destination_ip,
-                }
+                    "context": {
+                        "triggered": triggered,
+                        "requested_mode": mode.value,
+                        "mode": response.mode.value,
+                        "predicted_label": predicted_label,
+                        "block_threshold_met": block_threshold_met,
+                        "threshold_source": threshold_source,
+                        "source_ip": source_ip,
+                        "destination_ip": destination_ip,
+                    }
             },
         )
         return response

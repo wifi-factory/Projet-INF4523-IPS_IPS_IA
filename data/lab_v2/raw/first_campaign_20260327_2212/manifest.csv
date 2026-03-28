@@ -1,0 +1,7 @@
+campaign_id,scenario_id,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+first_campaign_20260327_2212,N01,normal,172.30.1.23,172.30.1.21,first_campaign_20260327_2212_N01.pcap,2026-03-28T02:11:41Z,57,ok,ubuntu ping meta2
+first_campaign_20260327_2212,N02,normal,172.30.1.23,172.30.1.21,first_campaign_20260327_2212_N02.pcap,2026-03-28T02:11:51Z,59,ok,ubuntu curl meta2 http
+first_campaign_20260327_2212,N03,normal,172.30.1.23,172.30.1.24,first_campaign_20260327_2212_N03.pcap,2026-03-28T02:11:57Z,54,ok,ubuntu curl meta3 http
+first_campaign_20260327_2212,S01,suspect,172.30.1.20,172.30.1.21,first_campaign_20260327_2212_S01.pcap,2026-03-28T02:12:02Z,267,ok,kali syn scan meta2 ports 1-128
+first_campaign_20260327_2212,S02,suspect,172.30.1.20,172.30.1.24,first_campaign_20260327_2212_S02.pcap,2026-03-28T02:12:13Z,280,ok,kali connect scan meta3 ports 1-128
+first_campaign_20260327_2212,S05,suspect,172.30.1.20,172.30.1.24,first_campaign_20260327_2212_S05.pcap,2026-03-28T02:12:27Z,60,ok,kali syn burst meta3 port 80

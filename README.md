@@ -89,6 +89,11 @@ Le backend est organise en couches :
 - `detection_service` : orchestration prediction + normalisation de sortie.
 - `blocking_service` : blocage controle en `dry_run` ou `system_stub`.
 - `replay_service` : replay asynchrone sur `validation` ou `test`.
+- `live_capture_service` : capture live via `tshark` sur une interface reelle.
+- `flow_aggregation_service` : agregration 5-tuple bidirectionnelle et calcul
+  des 31 features flow-level.
+- `live_runtime_service` : orchestration `capture -> flux -> detection ->
+  blocage -> statut`.
 - `api` : endpoints FastAPI.
 
 ## Structure du projet
@@ -104,6 +109,7 @@ Projet-INF4523-IPS_IPS_IA/
         routes_dataset.py
         routes_detection.py
         routes_blocking.py
+        routes_live.py
         routes_replay.py
         routes_model.py
       core/
@@ -118,6 +124,9 @@ Projet-INF4523-IPS_IPS_IA/
         detection_service.py
         blocking_service.py
         replay_service.py
+        live_capture_service.py
+        flow_aggregation_service.py
+        live_runtime_service.py
       models/
         api_models.py
       utils/
@@ -125,7 +134,6 @@ Projet-INF4523-IPS_IPS_IA/
         dataframe_utils.py
         firewall_utils.py
         time_utils.py
-    tests/
   data/
   models/
   docs/
@@ -141,6 +149,7 @@ Projet-INF4523-IPS_IPS_IA/
 - Acces local aux artefacts fournis
 - Windows pour le contexte courant ; le preview de blocage cible une integration
   Linux future via `iptables`
+- `tshark` disponible sur la machine qui effectue la capture live
 
 ## Configuration des chemins
 
@@ -156,6 +165,31 @@ surcharger :
 - `IPS_BLOCKING_MODE`
 - `IPS_LOG_LEVEL`
 - `IPS_REPLAY_DEFAULT_DELAY_SECONDS`
+- `IPS_LIVE_INTERFACE`
+- `IPS_LIVE_CAPTURE_FILTER`
+- `IPS_LIVE_TSHARK_PATH`
+- `IPS_LIVE_FLUSH_INTERVAL_SECONDS`
+- `IPS_LIVE_TCP_IDLE_TIMEOUT_SECONDS`
+- `IPS_LIVE_UDP_IDLE_TIMEOUT_SECONDS`
+- `IPS_LIVE_ICMP_IDLE_TIMEOUT_SECONDS`
+- `IPS_LIVE_MAX_FLOW_DURATION_SECONDS`
+- `IPS_LIVE_ALERT_CONFIDENCE_THRESHOLD`
+- `IPS_LIVE_BLOCK_CONFIDENCE_THRESHOLD`
+- `IPS_LIVE_STATUS_ERROR_LIMIT`
+
+Calibration live recommandee :
+
+- `IPS_LIVE_ALERT_CONFIDENCE_THRESHOLD=0.95`
+- `IPS_LIVE_BLOCK_CONFIDENCE_THRESHOLD=0.99`
+
+Interpretation :
+
+- si la probabilite `suspect` est sous le seuil d'alerte, le flux est requalifie
+  `normal` pour le runtime live ;
+- si elle depasse le seuil d'alerte mais pas le seuil de blocage, le flux est
+  `suspect` et compte comme alerte, mais aucun blocage n'est declenche ;
+- si elle depasse aussi le seuil de blocage, le flux est `suspect` avec
+  blocage controle (`dry_run` ou autre mode selon la config).
 
 ## Installation
 
@@ -169,6 +203,14 @@ pip install -r requirements.txt
 
 ```powershell
 uvicorn backend.app.main:app --reload
+```
+
+Exemple avec interface live preconfiguree :
+
+```powershell
+$env:IPS_LIVE_INTERFACE="Wi-Fi"
+$env:IPS_LIVE_TSHARK_PATH="tshark"
+uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
 ```
 
 Documentation interactive :
@@ -299,6 +341,98 @@ Retourne l'etat du dernier replay :
 - `block_decisions_count`
 - erreurs eventuelles
 
+### `POST /live/start`
+
+Demarre une session de monitoring live native.
+
+Exemple :
+
+```json
+{
+  "interface_name": "Wi-Fi",
+  "capture_filter": "ip",
+  "flush_interval_seconds": 1.0,
+  "blocking_mode": "dry_run"
+}
+```
+
+### `GET /live/interfaces`
+
+Retourne les interfaces detectees automatiquement par `tshark` sur la machine
+qui execute le backend.
+
+Exemple de reponse :
+
+```json
+{
+  "interfaces": [
+    {"index": "1", "label": "1. Wi-Fi"},
+    {"index": "2", "label": "2. Ethernet"}
+  ]
+}
+```
+
+### `GET /live/status`
+
+Retourne l'etat runtime du pipeline live :
+
+- `status`
+- `running`
+- `session_id`
+- `interface_name`
+- `capture_filter`
+- `blocking_mode`
+- `alert_confidence_threshold`
+- `block_confidence_threshold`
+- `started_at`
+- `uptime_seconds`
+- `packets_captured`
+- `packets_ignored`
+- `packet_parse_errors`
+- `active_flows`
+- `finalized_flows`
+- `predictions`
+- `alerts`
+- `block_decisions`
+- `last_predicted_label`
+- `last_confidence`
+- `last_errors`
+
+Exemple de reponse :
+
+```json
+{
+  "status": "running",
+  "running": true,
+  "session_id": "LIVE-AB12CD34",
+  "interface_name": "Wi-Fi",
+  "capture_filter": "ip",
+  "blocking_mode": "dry_run",
+  "alert_confidence_threshold": 0.95,
+  "block_confidence_threshold": 0.99,
+  "started_at": "2026-03-27T19:00:00+00:00",
+  "stopped_at": null,
+  "last_event_at": "2026-03-27T19:00:03+00:00",
+  "uptime_seconds": 3.0,
+  "packets_captured": 42,
+  "packets_ignored": 0,
+  "packet_parse_errors": 0,
+  "active_flows": 2,
+  "finalized_flows": 5,
+  "predictions": 5,
+  "alerts": 2,
+  "block_decisions": 2,
+  "last_predicted_label": "suspect",
+  "last_confidence": 0.97,
+  "last_errors": []
+}
+```
+
+### `POST /live/stop`
+
+Arrete proprement la session live, force le flush des flux restants, puis
+retourne l'etat final.
+
 ## Mode replay academique
 
 Le replay traite ligne par ligne un split `validation` ou `test` comme si les
@@ -309,21 +443,53 @@ flux arrivaient en quasi temps reel. Chaque evenement suit :
 3. decision de blocage simulee
 4. journalisation
 
+## Pipeline live end-to-end natif
+
+Le backend supporte maintenant une chaine live native :
+
+1. capture via `tshark`
+2. parsing minimal paquet
+3. agregration bidirectionnelle par 5-tuple
+4. finalisation de flux sur timeout d'inactivite, FIN/RST TCP ou duree max
+5. calcul des 31 features du contrat du modele
+6. appel de `detection_service`
+7. appel de `blocking_service`
+8. exposition d'un statut runtime exploitable par un dashboard
+
+Points de parite offline/live :
+
+- le modele reste strictement flow-level ;
+- la capture live ne predit jamais paquet par paquet ;
+- l'ordre des features est toujours derive du metadata ;
+- `src_ip` et `dst_ip` restent des metadonnees operationnelles et n'entrent pas
+  dans le vecteur ML.
+- la calibration live peut appliquer deux seuils distincts :
+  `alert_confidence_threshold` et `block_confidence_threshold`.
+
 ## Tests
 
-Les tests minimaux couvrent :
+Les tests couvrent :
 
-- chargement parquet
-- chargement metadata
-- chargement modele
-- validation du feature contract
-- prediction
-- blocage dry-run
+- parsing live `tshark -> PacketEvent`
+- agregration en flux bidirectionnels
+- calcul de features flow-level
+- start / status / stop runtime
+- endpoints `/live/start`, `/live/status`, `/live/stop`
+- scenario end-to-end minimal avec emission de prediction et blocage simule
 
 Execution :
 
 ```powershell
-pytest
+.\.venv\Scripts\python -m pytest backend/tests
+```
+
+Sous-ensembles utiles :
+
+```powershell
+.\.venv\Scripts\python -m pytest backend/tests/test_flow_aggregation_service.py
+.\.venv\Scripts\python -m pytest backend/tests/test_live_runtime_service.py
+.\.venv\Scripts\python -m pytest backend/tests/test_api_live.py
+.\.venv\Scripts\python -m pytest backend/tests/test_live_e2e.py
 ```
 
 ## Limites actuelles
@@ -334,8 +500,12 @@ pytest
 - Le blocage reel est simule par defaut.
 - `system_stub` ne fait qu'exposer un apercu de commande firewall ; aucune
   commande destructive n'est executee.
-- La capture live reelle, les regles systeme completes et le dashboard ne sont
-  pas encore livres ici.
+- La capture live depend de `tshark` sur la machine qui observe l'interface.
+- Le blocage `enforce` reste volontairement prudent et degrade proprement vers
+  `dry_run` si la commande n'est pas applicable.
+- Le pipeline live garde les flux actifs en memoire ; il faudra une persistence
+  ou un bus d'evenements pour monter en charge.
+- Le dashboard n'est pas encore livre ici.
 
 ## Evolutions futures
 
@@ -344,14 +514,18 @@ pytest
 - gestion plus fine des politiques de blocage
 - instrumentation Linux reelle, securisee et reversible
 - reporting et traces d'evaluation
+- diffusion temps reel des evenements live vers WebSocket ou file de messages
 
 ## Note sur le blocage
 
 Le backend applique la logique :
 
 1. classifier le flux
-2. si le label predit est `suspect`, produire une decision de blocage
-3. executer par defaut en `dry_run`
+2. si le label predit est `suspect` et depasse le seuil d'alerte live,
+   produire une alerte
+3. si le meme flux depasse aussi le seuil de blocage live, produire une
+   decision de blocage
+4. executer par defaut en `dry_run`
 
 Ainsi, `src_ip` et `dst_ip` peuvent etre fournis pour les decisions
 operationnelles sans jamais entrer dans le vecteur de prediction.

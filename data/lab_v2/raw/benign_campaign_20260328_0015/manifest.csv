@@ -1,0 +1,37 @@
+campaign_id,run_index,scenario_id,scenario_family,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+benign_campaign_20260328_0015,1,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N01_run01.pcap,2026-03-28T10:36:22Z,58,ok,ubuntu ping meta2
+benign_campaign_20260328_0015,1,N02,normal_http,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N02_run01.pcap,2026-03-28T10:36:32Z,54,ok,ubuntu curl meta2 http
+benign_campaign_20260328_0015,1,N03,normal_http,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N03_run01.pcap,2026-03-28T10:36:37Z,55,ok,ubuntu curl meta3 http
+benign_campaign_20260328_0015,1,N06,normal_dns,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N06_run01.pcap,2026-03-28T10:36:42Z,45,ok,ubuntu dig query to kali dnsmasq
+benign_campaign_20260328_0015,1,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N07_run01.pcap,2026-03-28T10:36:50Z,4637,ok,ubuntu iperf3 tcp to kali
+benign_campaign_20260328_0015,1,N11,normal_wget,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N11_run01.pcap,2026-03-28T10:37:03Z,53,ok,ubuntu wget meta3 http
+benign_campaign_20260328_0015,2,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N01_run02.pcap,2026-03-28T10:37:08Z,55,ok,ubuntu ping meta2
+benign_campaign_20260328_0015,2,N02,normal_http,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N02_run02.pcap,2026-03-28T10:37:18Z,56,ok,ubuntu curl meta2 http
+benign_campaign_20260328_0015,2,N03,normal_http,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N03_run02.pcap,2026-03-28T10:37:24Z,50,ok,ubuntu curl meta3 http
+benign_campaign_20260328_0015,2,N06,normal_dns,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N06_run02.pcap,2026-03-28T10:37:31Z,43,ok,ubuntu dig query to kali dnsmasq
+benign_campaign_20260328_0015,2,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N07_run02.pcap,2026-03-28T10:37:38Z,5066,ok,ubuntu iperf3 tcp to kali
+benign_campaign_20260328_0015,2,N11,normal_wget,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N11_run02.pcap,2026-03-28T10:37:51Z,51,ok,ubuntu wget meta3 http
+benign_campaign_20260328_0015,3,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N01_run03.pcap,2026-03-28T10:37:56Z,58,ok,ubuntu ping meta2
+benign_campaign_20260328_0015,3,N02,normal_http,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N02_run03.pcap,2026-03-28T10:38:06Z,50,ok,ubuntu curl meta2 http
+benign_campaign_20260328_0015,3,N03,normal_http,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N03_run03.pcap,2026-03-28T10:38:11Z,52,ok,ubuntu curl meta3 http
+benign_campaign_20260328_0015,3,N06,normal_dns,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N06_run03.pcap,2026-03-28T10:38:16Z,45,ok,ubuntu dig query to kali dnsmasq
+benign_campaign_20260328_0015,3,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N07_run03.pcap,2026-03-28T10:38:25Z,5238,ok,ubuntu iperf3 tcp to kali
+benign_campaign_20260328_0015,3,N11,normal_wget,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N11_run03.pcap,2026-03-28T10:38:39Z,56,ok,ubuntu wget meta3 http
+benign_campaign_20260328_0015,4,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N01_run04.pcap,2026-03-28T10:38:44Z,61,ok,ubuntu ping meta2
+benign_campaign_20260328_0015,4,N02,normal_http,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N02_run04.pcap,2026-03-28T10:38:55Z,54,ok,ubuntu curl meta2 http
+benign_campaign_20260328_0015,4,N03,normal_http,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N03_run04.pcap,2026-03-28T10:39:00Z,55,ok,ubuntu curl meta3 http
+benign_campaign_20260328_0015,4,N06,normal_dns,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N06_run04.pcap,2026-03-28T10:39:06Z,43,ok,ubuntu dig query to kali dnsmasq
+benign_campaign_20260328_0015,4,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N07_run04.pcap,2026-03-28T10:39:13Z,4162,ok,ubuntu iperf3 tcp to kali
+benign_campaign_20260328_0015,4,N11,normal_wget,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N11_run04.pcap,2026-03-28T10:39:26Z,53,ok,ubuntu wget meta3 http
+benign_campaign_20260328_0015,5,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N01_run05.pcap,2026-03-28T10:39:31Z,55,ok,ubuntu ping meta2
+benign_campaign_20260328_0015,5,N02,normal_http,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N02_run05.pcap,2026-03-28T10:39:42Z,52,ok,ubuntu curl meta2 http
+benign_campaign_20260328_0015,5,N03,normal_http,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N03_run05.pcap,2026-03-28T10:39:47Z,53,ok,ubuntu curl meta3 http
+benign_campaign_20260328_0015,5,N06,normal_dns,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N06_run05.pcap,2026-03-28T10:39:52Z,43,ok,ubuntu dig query to kali dnsmasq
+benign_campaign_20260328_0015,5,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N07_run05.pcap,2026-03-28T10:40:00Z,4967,ok,ubuntu iperf3 tcp to kali
+benign_campaign_20260328_0015,5,N11,normal_wget,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N11_run05.pcap,2026-03-28T10:40:12Z,51,ok,ubuntu wget meta3 http
+benign_campaign_20260328_0015,6,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N01_run06.pcap,2026-03-28T10:40:18Z,58,ok,ubuntu ping meta2
+benign_campaign_20260328_0015,6,N02,normal_http,normal,172.30.1.23,172.30.1.21,benign_campaign_20260328_0015_N02_run06.pcap,2026-03-28T10:40:27Z,51,ok,ubuntu curl meta2 http
+benign_campaign_20260328_0015,6,N03,normal_http,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N03_run06.pcap,2026-03-28T10:40:32Z,55,ok,ubuntu curl meta3 http
+benign_campaign_20260328_0015,6,N06,normal_dns,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N06_run06.pcap,2026-03-28T10:40:38Z,56,ok,ubuntu dig query to kali dnsmasq
+benign_campaign_20260328_0015,6,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,benign_campaign_20260328_0015_N07_run06.pcap,2026-03-28T10:40:46Z,5131,ok,ubuntu iperf3 tcp to kali
+benign_campaign_20260328_0015,6,N11,normal_wget,normal,172.30.1.23,172.30.1.24,benign_campaign_20260328_0015_N11_run06.pcap,2026-03-28T10:40:59Z,55,ok,ubuntu wget meta3 http

@@ -1,0 +1,6 @@
+total_flows=54335
+label_counts={'suspect': 30062, 'normal': 24273}
+top3_normal_share_pct=70.05
+top3_suspect_share_pct=75.8
+top_normal_scenarios=[{'scenario_id': 'N20', 'flow_count': 6012, 'pct_within_label': 24.77}, {'scenario_id': 'N21', 'flow_count': 6001, 'pct_within_label': 24.72}, {'scenario_id': 'N22', 'flow_count': 4991, 'pct_within_label': 20.56}, {'scenario_id': 'N30', 'flow_count': 4497, 'pct_within_label': 18.53}, {'scenario_id': 'N23', 'flow_count': 1506, 'pct_within_label': 6.2}, {'scenario_id': 'N24', 'flow_count': 1200, 'pct_within_label': 4.94}, {'scenario_id': 'N07', 'flow_count': 18, 'pct_within_label': 0.07}, {'scenario_id': 'N06', 'flow_count': 12, 'pct_within_label': 0.05}]
+top_suspect_scenarios=[{'scenario_id': 'S21', 'flow_count': 9982, 'pct_within_label': 33.2}, {'scenario_id': 'S20', 'flow_count': 8009, 'pct_within_label': 26.64}, {'scenario_id': 'S22', 'flow_count': 4795, 'pct_within_label': 15.95}, {'scenario_id': 'S23', 'flow_count': 2018, 'pct_within_label': 6.71}, {'scenario_id': 'S25', 'flow_count': 2014, 'pct_within_label': 6.7}, {'scenario_id': 'S24', 'flow_count': 2000, 'pct_within_label': 6.65}, {'scenario_id': 'S02', 'flow_count': 766, 'pct_within_label': 2.55}, {'scenario_id': 'S01', 'flow_count': 384, 'pct_within_label': 1.28}]

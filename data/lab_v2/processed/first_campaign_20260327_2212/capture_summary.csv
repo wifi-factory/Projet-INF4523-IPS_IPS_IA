@@ -1,0 +1,7 @@
+campaign_id,capture_id,pcap_name,scenario_id,scenario_family,label_binary,packet_count,flow_count,status,source_host,target_host,started_at_utc,notes
+first_campaign_20260327_2212,first_campaign_20260327_2212_N01,first_campaign_20260327_2212_N01.pcap,N01,normal_icmp,normal,10,1,ok,172.30.1.23,172.30.1.21,2026-03-28T02:11:41Z,ubuntu ping meta2
+first_campaign_20260327_2212,first_campaign_20260327_2212_N02,first_campaign_20260327_2212_N02.pcap,N02,normal_http,normal,16,1,ok,172.30.1.23,172.30.1.21,2026-03-28T02:11:51Z,ubuntu curl meta2 http
+first_campaign_20260327_2212,first_campaign_20260327_2212_N03,first_campaign_20260327_2212_N03.pcap,N03,normal_http,normal,12,1,ok,172.30.1.23,172.30.1.24,2026-03-28T02:11:57Z,ubuntu curl meta3 http
+first_campaign_20260327_2212,first_campaign_20260327_2212_S01,first_campaign_20260327_2212_S01.pcap,S01,scan_syn,suspect,263,128,ok,172.30.1.20,172.30.1.21,2026-03-28T02:12:02Z,kali syn scan meta2 ports 1-128
+first_campaign_20260327_2212,first_campaign_20260327_2212_S02,first_campaign_20260327_2212_S02.pcap,S02,scan_connect,suspect,278,254,ok,172.30.1.20,172.30.1.24,2026-03-28T02:12:13Z,kali connect scan meta3 ports 1-128
+first_campaign_20260327_2212,first_campaign_20260327_2212_S05,first_campaign_20260327_2212_S05.pcap,S05,syn_burst,suspect,60,20,ok,172.30.1.20,172.30.1.24,2026-03-28T02:12:27Z,kali syn burst meta3 port 80

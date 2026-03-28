@@ -1,0 +1,23 @@
+campaign_id,run_index,scenario_id,scenario_family,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+second_campaign_20260327_2220,1,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,second_campaign_20260327_2220_N01_run01.pcap,2026-03-28T02:28:49Z,55,ok,ubuntu ping meta2
+second_campaign_20260327_2220,1,N02,normal_http,normal,172.30.1.23,172.30.1.21,second_campaign_20260327_2220_N02_run01.pcap,2026-03-28T02:28:58Z,52,ok,ubuntu curl meta2 http
+second_campaign_20260327_2220,1,N03,normal_http,normal,172.30.1.23,172.30.1.24,second_campaign_20260327_2220_N03_run01.pcap,2026-03-28T02:29:03Z,55,ok,ubuntu curl meta3 http
+second_campaign_20260327_2220,1,N06,normal_dns,normal,172.30.1.23,172.30.1.20,second_campaign_20260327_2220_N06_run01.pcap,2026-03-28T02:29:08Z,43,ok,ubuntu dig query to kali dnsmasq
+second_campaign_20260327_2220,1,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,second_campaign_20260327_2220_N07_run01.pcap,2026-03-28T02:29:16Z,5765,ok,ubuntu iperf3 tcp to kali
+second_campaign_20260327_2220,1,N11,normal_wget,normal,172.30.1.23,172.30.1.24,second_campaign_20260327_2220_N11_run01.pcap,2026-03-28T02:29:28Z,57,ok,ubuntu wget meta3 http
+second_campaign_20260327_2220,1,S01,scan_syn,suspect,172.30.1.20,172.30.1.21,second_campaign_20260327_2220_S01_run01.pcap,2026-03-28T02:29:34Z,267,ok,kali syn scan meta2 ports 1-128
+second_campaign_20260327_2220,1,S02,scan_connect,suspect,172.30.1.20,172.30.1.24,second_campaign_20260327_2220_S02_run01.pcap,2026-03-28T02:29:46Z,287,ok,kali connect scan meta3 ports 1-128
+second_campaign_20260327_2220,1,S03,scan_udp,suspect,172.30.1.20,172.30.1.24,second_campaign_20260327_2220_S03_run01.pcap,2026-03-28T02:29:59Z,46,ok,kali udp scan meta3 selected ports
+second_campaign_20260327_2220,1,S05,syn_burst,suspect,172.30.1.20,172.30.1.24,second_campaign_20260327_2220_S05_run01.pcap,2026-03-28T02:30:12Z,62,ok,kali syn burst meta3 port 80
+second_campaign_20260327_2220,1,S06,icmp_burst,suspect,172.30.1.20,172.30.1.21,second_campaign_20260327_2220_S06_run01.pcap,2026-03-28T02:30:36Z,84,ok,kali icmp burst meta2
+second_campaign_20260327_2220,2,N01,normal_icmp,normal,172.30.1.23,172.30.1.21,second_campaign_20260327_2220_N01_run02.pcap,2026-03-28T02:30:44Z,54,ok,ubuntu ping meta2
+second_campaign_20260327_2220,2,N02,normal_http,normal,172.30.1.23,172.30.1.21,second_campaign_20260327_2220_N02_run02.pcap,2026-03-28T02:30:55Z,53,ok,ubuntu curl meta2 http
+second_campaign_20260327_2220,2,N03,normal_http,normal,172.30.1.23,172.30.1.24,second_campaign_20260327_2220_N03_run02.pcap,2026-03-28T02:31:00Z,52,ok,ubuntu curl meta3 http
+second_campaign_20260327_2220,2,N06,normal_dns,normal,172.30.1.23,172.30.1.20,second_campaign_20260327_2220_N06_run02.pcap,2026-03-28T02:31:05Z,45,ok,ubuntu dig query to kali dnsmasq
+second_campaign_20260327_2220,2,N07,normal_bulk_tcp,normal,172.30.1.23,172.30.1.20,second_campaign_20260327_2220_N07_run02.pcap,2026-03-28T02:31:12Z,6574,ok,ubuntu iperf3 tcp to kali
+second_campaign_20260327_2220,2,N11,normal_wget,normal,172.30.1.23,172.30.1.24,second_campaign_20260327_2220_N11_run02.pcap,2026-03-28T02:31:25Z,50,ok,ubuntu wget meta3 http
+second_campaign_20260327_2220,2,S01,scan_syn,suspect,172.30.1.20,172.30.1.21,second_campaign_20260327_2220_S01_run02.pcap,2026-03-28T02:31:30Z,265,ok,kali syn scan meta2 ports 1-128
+second_campaign_20260327_2220,2,S02,scan_connect,suspect,172.30.1.20,172.30.1.24,second_campaign_20260327_2220_S02_run02.pcap,2026-03-28T02:31:41Z,280,ok,kali connect scan meta3 ports 1-128
+second_campaign_20260327_2220,2,S03,scan_udp,suspect,172.30.1.20,172.30.1.24,second_campaign_20260327_2220_S03_run02.pcap,2026-03-28T02:31:54Z,34,ok,kali udp scan meta3 selected ports
+second_campaign_20260327_2220,2,S05,syn_burst,suspect,172.30.1.20,172.30.1.24,second_campaign_20260327_2220_S05_run02.pcap,2026-03-28T02:32:07Z,66,ok,kali syn burst meta3 port 80
+second_campaign_20260327_2220,2,S06,icmp_burst,suspect,172.30.1.20,172.30.1.21,second_campaign_20260327_2220_S06_run02.pcap,2026-03-28T02:32:32Z,84,ok,kali icmp burst meta2

@@ -8,8 +8,16 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_EXTERNAL_ROOT = Path(
-    r"K:\4. UQO\04. INF4523 - Réseaux d'ordinateurs\7. IPS - IA - INF4523 met a jour"
+    r"K:\4. UQO\04. INF4523 - RÃ©seaux d'ordinateurs\7. IPS - IA - INF4523 met a jour"
 )
+LOCAL_MODEL_DIR = PROJECT_ROOT / "models"
+LOCAL_LAB_V2_PREPARED_DIR = (
+    PROJECT_ROOT / "data" / "lab_v2" / "prepared" / "lab_v2_balanced_v2_20260328_1310"
+)
+
+
+def prefer_local_path(local_path: Path, fallback_path: Path) -> Path:
+    return local_path if local_path.exists() else fallback_path
 
 
 @dataclass(frozen=True)
@@ -25,6 +33,17 @@ class Settings:
     train_path: Path
     validation_path: Path
     test_path: Path
+    live_default_interface: str | None
+    live_capture_filter: str
+    live_tshark_path: str
+    live_flush_interval_seconds: float
+    live_tcp_idle_timeout_seconds: float
+    live_udp_idle_timeout_seconds: float
+    live_icmp_idle_timeout_seconds: float
+    live_max_flow_duration_seconds: float
+    live_alert_confidence_threshold: float
+    live_block_confidence_threshold: float
+    live_status_error_limit: int
 
     @property
     def dataset_paths(self) -> dict[str, Path]:
@@ -36,6 +55,27 @@ class Settings:
 
 
 def build_settings() -> Settings:
+    default_model_path = prefer_local_path(
+        LOCAL_MODEL_DIR / "random_forest_lab_v2.joblib",
+        DEFAULT_EXTERNAL_ROOT / "models" / "random_forest_v1.joblib",
+    )
+    default_metadata_path = prefer_local_path(
+        LOCAL_MODEL_DIR / "random_forest_lab_v2_metadata.json",
+        DEFAULT_EXTERNAL_ROOT / "models" / "random_forest_v1_metadata.json",
+    )
+    default_train_path = prefer_local_path(
+        LOCAL_LAB_V2_PREPARED_DIR / "train_balanced.parquet",
+        DEFAULT_EXTERNAL_ROOT / "data" / "processed" / "kali_lab_v1" / "05. train.parquet",
+    )
+    default_validation_path = prefer_local_path(
+        LOCAL_LAB_V2_PREPARED_DIR / "validation_clean.parquet",
+        DEFAULT_EXTERNAL_ROOT / "data" / "processed" / "kali_lab_v1" / "06. validation.parquet",
+    )
+    default_test_path = prefer_local_path(
+        LOCAL_LAB_V2_PREPARED_DIR / "test_clean.parquet",
+        DEFAULT_EXTERNAL_ROOT / "data" / "processed" / "kali_lab_v1" / "04. test.parquet",
+    )
+
     return Settings(
         project_root=PROJECT_ROOT,
         app_name="Projet INF4523 - IPS IA Backend",
@@ -48,54 +88,62 @@ def build_settings() -> Settings:
         model_path=Path(
             os.getenv(
                 "IPS_MODEL_PATH",
-                str(DEFAULT_EXTERNAL_ROOT / "models" / "random_forest_v1.joblib"),
+                str(default_model_path),
             )
         ),
         metadata_path=Path(
             os.getenv(
                 "IPS_METADATA_PATH",
-                str(
-                    DEFAULT_EXTERNAL_ROOT
-                    / "models"
-                    / "random_forest_v1_metadata.json"
-                ),
+                str(default_metadata_path),
             )
         ),
         train_path=Path(
             os.getenv(
                 "IPS_TRAIN_PATH",
-                str(
-                    DEFAULT_EXTERNAL_ROOT
-                    / "data"
-                    / "processed"
-                    / "kali_lab_v1"
-                    / "05. train.parquet"
-                ),
+                str(default_train_path),
             )
         ),
         validation_path=Path(
             os.getenv(
                 "IPS_VALIDATION_PATH",
-                str(
-                    DEFAULT_EXTERNAL_ROOT
-                    / "data"
-                    / "processed"
-                    / "kali_lab_v1"
-                    / "06. validation.parquet"
-                ),
+                str(default_validation_path),
             )
         ),
         test_path=Path(
             os.getenv(
                 "IPS_TEST_PATH",
-                str(
-                    DEFAULT_EXTERNAL_ROOT
-                    / "data"
-                    / "processed"
-                    / "kali_lab_v1"
-                    / "04. test.parquet"
-                ),
+                str(default_test_path),
             )
+        ),
+        live_default_interface=os.getenv("IPS_LIVE_INTERFACE") or None,
+        live_capture_filter=os.getenv("IPS_LIVE_CAPTURE_FILTER", "ip"),
+        live_tshark_path=os.getenv("IPS_LIVE_TSHARK_PATH", "tshark"),
+        live_flush_interval_seconds=float(
+            os.getenv("IPS_LIVE_FLUSH_INTERVAL_SECONDS", "1.0")
+        ),
+        live_tcp_idle_timeout_seconds=float(
+            os.getenv("IPS_LIVE_TCP_IDLE_TIMEOUT_SECONDS", "30.0")
+        ),
+        live_udp_idle_timeout_seconds=float(
+            os.getenv("IPS_LIVE_UDP_IDLE_TIMEOUT_SECONDS", "15.0")
+        ),
+        live_icmp_idle_timeout_seconds=float(
+            os.getenv("IPS_LIVE_ICMP_IDLE_TIMEOUT_SECONDS", "5.0")
+        ),
+        live_max_flow_duration_seconds=float(
+            os.getenv("IPS_LIVE_MAX_FLOW_DURATION_SECONDS", "60.0")
+        ),
+        live_alert_confidence_threshold=float(
+            os.getenv(
+                "IPS_LIVE_ALERT_CONFIDENCE_THRESHOLD",
+                os.getenv("IPS_LIVE_SUSPECT_CONFIDENCE_THRESHOLD", "0.95"),
+            )
+        ),
+        live_block_confidence_threshold=float(
+            os.getenv("IPS_LIVE_BLOCK_CONFIDENCE_THRESHOLD", "0.99")
+        ),
+        live_status_error_limit=int(
+            os.getenv("IPS_LIVE_STATUS_ERROR_LIMIT", "20")
         ),
     )
 

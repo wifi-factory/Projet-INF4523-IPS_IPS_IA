@@ -1,0 +1,137 @@
+campaign_id,run_index,scenario_id,scenario_family,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+v1_campaign_20260328_0208,1,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run01.pcap,2026-03-28T12:37:57Z,3256,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,2,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run02.pcap,2026-03-28T12:40:05Z,3184,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,3,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run03.pcap,2026-03-28T12:40:49Z,3620,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,4,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run04.pcap,2026-03-28T12:42:07Z,3336,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,5,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run05.pcap,2026-03-28T12:42:54Z,3539,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,6,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run06.pcap,2026-03-28T12:43:46Z,3303,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,7,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run07.pcap,2026-03-28T12:44:31Z,3342,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,8,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run08.pcap,2026-03-28T12:45:16Z,3339,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,9,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run09.pcap,2026-03-28T12:46:00Z,3300,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,10,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run10.pcap,2026-03-28T12:46:43Z,3366,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,11,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run11.pcap,2026-03-28T12:47:28Z,3333,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,12,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run12.pcap,2026-03-28T12:48:09Z,3325,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,13,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run13.pcap,2026-03-28T12:48:56Z,3303,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,14,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run14.pcap,2026-03-28T12:49:38Z,3173,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,15,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run15.pcap,2026-03-28T12:50:14Z,3264,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,16,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run16.pcap,2026-03-28T12:50:56Z,3406,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,17,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run17.pcap,2026-03-28T12:51:49Z,3178,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,18,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run18.pcap,2026-03-28T12:52:21Z,3124,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,19,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run19.pcap,2026-03-28T12:52:54Z,3253,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,20,N20,normal_http_short,normal,172.30.1.23,172.30.1.21,v1_campaign_20260328_0208_N20_run20.pcap,2026-03-28T12:53:30Z,3213,ok,ubuntu short http burst to meta2
+v1_campaign_20260328_0208,1,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run01.pcap,2026-03-28T12:54:06Z,3042,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,2,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run02.pcap,2026-03-28T12:54:22Z,3044,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,3,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run03.pcap,2026-03-28T12:54:40Z,3042,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,4,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run04.pcap,2026-03-28T12:55:01Z,3041,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,5,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run05.pcap,2026-03-28T12:55:31Z,3047,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,6,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run06.pcap,2026-03-28T12:55:56Z,3046,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,7,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run07.pcap,2026-03-28T12:56:23Z,3043,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,8,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run08.pcap,2026-03-28T12:56:45Z,3043,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,9,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run09.pcap,2026-03-28T12:57:05Z,3042,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,10,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run10.pcap,2026-03-28T12:57:27Z,3045,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,11,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run11.pcap,2026-03-28T12:57:47Z,3052,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,12,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run12.pcap,2026-03-28T12:58:07Z,3047,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,13,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run13.pcap,2026-03-28T12:58:32Z,3048,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,14,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run14.pcap,2026-03-28T12:58:53Z,3044,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,15,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run15.pcap,2026-03-28T12:59:13Z,3043,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,16,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run16.pcap,2026-03-28T12:59:35Z,3045,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,17,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run17.pcap,2026-03-28T12:59:57Z,3042,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,18,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run18.pcap,2026-03-28T13:00:17Z,3046,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,19,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run19.pcap,2026-03-28T13:00:43Z,3044,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,20,N21,normal_http_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N21_run20.pcap,2026-03-28T13:01:08Z,3047,ok,ubuntu short http burst to meta3
+v1_campaign_20260328_0208,1,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run01.pcap,2026-03-28T13:01:34Z,1094,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,2,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run02.pcap,2026-03-28T13:05:24Z,1076,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,3,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run03.pcap,2026-03-28T13:11:37Z,1057,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,4,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run04.pcap,2026-03-28T13:13:49Z,1086,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,5,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run05.pcap,2026-03-28T13:18:51Z,1075,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,6,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run06.pcap,2026-03-28T13:23:49Z,1044,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,7,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run07.pcap,2026-03-28T13:27:07Z,1070,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,8,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run08.pcap,2026-03-28T13:29:23Z,1055,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,9,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run09.pcap,2026-03-28T13:29:53Z,1046,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,10,N22,normal_dns_burst,normal,172.30.1.23,172.30.1.20,v1_campaign_20260328_0208_N22_run10.pcap,2026-03-28T13:30:53Z,1088,ok,ubuntu dns burst to kali dnsmasq
+v1_campaign_20260328_0208,1,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run01.pcap,2026-03-28T13:38:08Z,5665,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,2,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run02.pcap,2026-03-28T13:39:04Z,5665,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,3,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run03.pcap,2026-03-28T13:39:56Z,5664,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,4,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run04.pcap,2026-03-28T13:40:48Z,5680,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,5,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run05.pcap,2026-03-28T13:41:39Z,5652,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,6,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run06.pcap,2026-03-28T13:42:31Z,5685,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,7,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run07.pcap,2026-03-28T13:43:23Z,5660,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,8,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run08.pcap,2026-03-28T13:44:15Z,5657,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,9,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run09.pcap,2026-03-28T13:45:07Z,5684,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,10,N23,normal_ssh_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N23_run10.pcap,2026-03-28T13:45:59Z,5665,ok,ubuntu repeated ssh one-shot to meta3
+v1_campaign_20260328_0208,1,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run01.pcap,2026-03-28T13:46:50Z,1241,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,2,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run02.pcap,2026-03-28T13:46:58Z,1245,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,3,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run03.pcap,2026-03-28T13:47:05Z,1241,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,4,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run04.pcap,2026-03-28T13:47:13Z,1243,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,5,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run05.pcap,2026-03-28T13:47:21Z,1242,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,6,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run06.pcap,2026-03-28T13:47:28Z,1240,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,7,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run07.pcap,2026-03-28T13:47:36Z,1241,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,8,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run08.pcap,2026-03-28T13:47:43Z,1242,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,9,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run09.pcap,2026-03-28T13:47:51Z,1238,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,10,N24,normal_wget_burst,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N24_run10.pcap,2026-03-28T13:47:59Z,1249,ok,ubuntu wget burst to meta3 http
+v1_campaign_20260328_0208,1,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run01.pcap,2026-03-28T13:48:07Z,4609,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,2,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run02.pcap,2026-03-28T13:48:31Z,4611,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,3,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run03.pcap,2026-03-28T13:48:50Z,4605,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,4,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run04.pcap,2026-03-28T13:49:09Z,4598,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,5,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run05.pcap,2026-03-28T13:49:29Z,4594,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,6,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run06.pcap,2026-03-28T13:49:49Z,4611,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,7,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run07.pcap,2026-03-28T13:50:09Z,4623,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,8,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run08.pcap,2026-03-28T13:50:29Z,4605,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,9,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run09.pcap,2026-03-28T13:50:48Z,4604,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,10,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run10.pcap,2026-03-28T13:51:08Z,4616,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,11,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run11.pcap,2026-03-28T13:51:27Z,4617,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,12,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run12.pcap,2026-03-28T13:51:49Z,4617,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,13,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run13.pcap,2026-03-28T13:52:08Z,4586,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,14,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run14.pcap,2026-03-28T13:52:28Z,4612,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,15,N30,normal_https_short,normal,172.30.1.23,172.30.1.24,v1_campaign_20260328_0208_N30_run15.pcap,2026-03-28T13:52:48Z,4615,ok,ubuntu short https burst to meta3
+v1_campaign_20260328_0208,1,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run01.pcap,2026-03-28T13:53:08Z,2023,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,2,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run02.pcap,2026-03-28T13:53:19Z,2021,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,3,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run03.pcap,2026-03-28T13:53:32Z,2024,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,4,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run04.pcap,2026-03-28T13:53:44Z,2016,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,5,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run05.pcap,2026-03-28T13:53:56Z,2014,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,6,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run06.pcap,2026-03-28T13:54:08Z,2016,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,7,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run07.pcap,2026-03-28T13:54:20Z,2014,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,8,S20,scan_syn_large,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S20_run08.pcap,2026-03-28T13:54:31Z,2014,ok,kali syn scan meta2 ports 1-1000
+v1_campaign_20260328_0208,1,S21,scan_connect_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S21_run01.pcap,2026-03-28T13:54:43Z,2044,ok,kali connect scan meta3 ports 1-1000
+v1_campaign_20260328_0208,2,S21,scan_connect_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S21_run02.pcap,2026-03-28T13:54:59Z,2028,ok,kali connect scan meta3 ports 1-1000
+v1_campaign_20260328_0208,3,S21,scan_connect_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S21_run03.pcap,2026-03-28T13:55:15Z,2032,ok,kali connect scan meta3 ports 1-1000
+v1_campaign_20260328_0208,4,S21,scan_connect_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S21_run04.pcap,2026-03-28T13:55:31Z,2033,ok,kali connect scan meta3 ports 1-1000
+v1_campaign_20260328_0208,5,S21,scan_connect_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S21_run05.pcap,2026-03-28T13:55:47Z,2040,ok,kali connect scan meta3 ports 1-1000
+v1_campaign_20260328_0208,1,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run01.pcap,2026-03-28T13:56:03Z,624,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,2,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run02.pcap,2026-03-28T13:56:22Z,624,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,3,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run03.pcap,2026-03-28T13:56:40Z,624,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,4,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run04.pcap,2026-03-28T13:56:59Z,624,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,5,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run05.pcap,2026-03-28T13:57:18Z,624,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,6,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run06.pcap,2026-03-28T13:57:37Z,626,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,7,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run07.pcap,2026-03-28T13:57:56Z,630,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,8,S22,scan_udp_large,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S22_run08.pcap,2026-03-28T13:58:15Z,624,ok,kali udp scan meta3 ports 1-300
+v1_campaign_20260328_0208,1,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run01.pcap,2026-03-28T13:58:34Z,232,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,2,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run02.pcap,2026-03-28T14:02:20Z,267,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,3,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run03.pcap,2026-03-28T14:06:06Z,242,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,4,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run04.pcap,2026-03-28T14:09:54Z,240,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,5,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run05.pcap,2026-03-28T14:13:41Z,228,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,6,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run06.pcap,2026-03-28T14:17:27Z,263,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,7,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run07.pcap,2026-03-28T14:21:14Z,242,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,8,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run08.pcap,2026-03-28T14:25:00Z,240,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,9,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run09.pcap,2026-03-28T14:28:48Z,247,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,10,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v1_campaign_20260328_0208_S23_run10.pcap,2026-03-28T14:32:34Z,244,scenario_error,kali syn multiport burst meta3 ports 1-200
+v1_campaign_20260328_0208,1,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run01.pcap,2026-03-28T14:36:20Z,404,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,2,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run02.pcap,2026-03-28T14:36:30Z,400,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,3,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run03.pcap,2026-03-28T14:36:40Z,400,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,4,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run04.pcap,2026-03-28T14:36:49Z,402,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,5,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run05.pcap,2026-03-28T14:36:59Z,400,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,6,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run06.pcap,2026-03-28T14:37:08Z,402,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,7,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run07.pcap,2026-03-28T14:37:18Z,400,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,8,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run08.pcap,2026-03-28T14:37:28Z,406,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,9,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run09.pcap,2026-03-28T14:37:38Z,402,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,10,S24,failed_connection_burst,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S24_run10.pcap,2026-03-28T14:37:48Z,400,ok,kali repeated failed tcp connect meta2 port 65000
+v1_campaign_20260328_0208,1,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run01.pcap,2026-03-28T14:37:57Z,440,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,2,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run02.pcap,2026-03-28T14:39:50Z,441,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,3,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run03.pcap,2026-03-28T14:41:42Z,440,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,4,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run04.pcap,2026-03-28T14:43:34Z,434,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,5,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run05.pcap,2026-03-28T14:45:26Z,434,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,6,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run06.pcap,2026-03-28T14:47:19Z,442,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,7,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run07.pcap,2026-03-28T14:49:11Z,428,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,8,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run08.pcap,2026-03-28T14:51:03Z,424,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,9,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run09.pcap,2026-03-28T14:52:55Z,452,ok,kali slow syn scan meta2 ports 1-200
+v1_campaign_20260328_0208,10,S25,scan_syn_slow,suspect,172.30.1.20,172.30.1.21,v1_campaign_20260328_0208_S25_run10.pcap,2026-03-28T14:54:48Z,428,ok,kali slow syn scan meta2 ports 1-200

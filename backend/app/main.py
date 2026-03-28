@@ -9,6 +9,7 @@ from .api.routes_blocking import router as blocking_router
 from .api.routes_dataset import router as dataset_router
 from .api.routes_detection import router as detection_router
 from .api.routes_health import router as health_router
+from .api.routes_live import router as live_router
 from .api.routes_model import router as model_router
 from .api.routes_replay import router as replay_router
 from .config import get_settings
@@ -71,6 +72,7 @@ def create_app() -> FastAPI:
     app.include_router(detection_router)
     app.include_router(blocking_router)
     app.include_router(replay_router)
+    app.include_router(live_router)
     return app
 
 

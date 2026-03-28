@@ -1,0 +1,1387 @@
+{
+  "model_path": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\models\\random_forest_lab_v2.joblib",
+  "metadata_path": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\models\\random_forest_lab_v2_metadata.json",
+  "prepared_dir": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\data\\lab_v2\\prepared\\lab_v2_balanced_v2_20260328_1310",
+  "new_model": {
+    "train": {
+      "rows": 15678,
+      "label_counts": {
+        "normal": 7839,
+        "suspect": 7839
+      },
+      "accuracy": 0.999936,
+      "balanced_accuracy": 0.999936,
+      "precision_suspect": 1.0,
+      "recall_suspect": 0.999872,
+      "f1_suspect": 0.999936,
+      "confusion_matrix": [
+        [
+          7839,
+          0
+        ],
+        [
+          1,
+          7838
+        ]
+      ],
+      "confusion_labels": [
+        "normal",
+        "suspect"
+      ],
+      "classification_report": {
+        "normal": {
+          "precision": 0.9998724489795918,
+          "recall": 1.0,
+          "f1-score": 0.9999362204222209,
+          "support": 7839.0
+        },
+        "suspect": {
+          "precision": 1.0,
+          "recall": 0.9998724327082537,
+          "f1-score": 0.9999362122855138,
+          "support": 7839.0
+        },
+        "accuracy": 0.9999362163541268,
+        "macro avg": {
+          "precision": 0.9999362244897959,
+          "recall": 0.9999362163541268,
+          "f1-score": 0.9999362163538673,
+          "support": 15678.0
+        },
+        "weighted avg": {
+          "precision": 0.9999362244897959,
+          "recall": 0.9999362163541268,
+          "f1-score": 0.9999362163538674,
+          "support": 15678.0
+        }
+      },
+      "false_positive_rate": 0.0,
+      "roc_auc_suspect": 1.0,
+      "mean_probability_suspect": 0.499984,
+      "scenario_breakdown": [
+        {
+          "scenario_id": "S20",
+          "scenario_family": "scan_syn_large",
+          "rows": 2009.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N20",
+          "scenario_family": "normal_http_short",
+          "rows": 1680.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N21",
+          "scenario_family": "normal_http_short",
+          "rows": 1680.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S21",
+          "scenario_family": "scan_connect_large",
+          "rows": 1424.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S22",
+          "scenario_family": "scan_udp_large",
+          "rows": 1423.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N30",
+          "scenario_family": "normal_https_short",
+          "rows": 1400.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N22",
+          "scenario_family": "normal_dns_burst",
+          "rows": 1260.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S25",
+          "scenario_family": "scan_syn_slow",
+          "rows": 1066.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S24",
+          "scenario_family": "failed_connection_burst",
+          "rows": 1057.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N23",
+          "scenario_family": "normal_ssh_short",
+          "rows": 840.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N24",
+          "scenario_family": "normal_wget_burst",
+          "rows": 700.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S23",
+          "scenario_family": "syn_burst_multiport",
+          "rows": 341.0,
+          "accuracy": 0.9970674486803519,
+          "predicted_suspect_rate": 0.9970674486803519,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S02",
+          "scenario_family": "scan_connect",
+          "rows": 242.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N31",
+          "scenario_family": "normal_https_download",
+          "rows": 160.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S01",
+          "scenario_family": "scan_syn",
+          "rows": 123.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S31",
+          "scenario_family": "web_probe_https",
+          "rows": 60.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S30",
+          "scenario_family": "ssh_bruteforce_light",
+          "rows": 58.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N36",
+          "scenario_family": "normal_admin_mixed",
+          "rows": 50.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N35",
+          "scenario_family": "normal_scp",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S05",
+          "scenario_family": "syn_burst",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S03",
+          "scenario_family": "scan_udp",
+          "rows": 15.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N07",
+          "scenario_family": "normal_bulk_tcp",
+          "rows": 14.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N06",
+          "scenario_family": "normal_dns",
+          "rows": 10.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N01",
+          "scenario_family": "normal_icmp",
+          "rows": 7.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N02",
+          "scenario_family": "normal_http",
+          "rows": 6.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N03",
+          "scenario_family": "normal_http",
+          "rows": 6.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N11",
+          "scenario_family": "normal_wget",
+          "rows": 6.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S06",
+          "scenario_family": "icmp_burst",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        }
+      ]
+    },
+    "validation": {
+      "rows": 9227,
+      "label_counts": {
+        "suspect": 5129,
+        "normal": 4098
+      },
+      "accuracy": 0.998699,
+      "balanced_accuracy": 0.998806,
+      "precision_suspect": 0.999805,
+      "recall_suspect": 0.997855,
+      "f1_suspect": 0.998829,
+      "confusion_matrix": [
+        [
+          4097,
+          1
+        ],
+        [
+          11,
+          5118
+        ]
+      ],
+      "confusion_labels": [
+        "normal",
+        "suspect"
+      ],
+      "classification_report": {
+        "normal": {
+          "precision": 0.9973222979552093,
+          "recall": 0.9997559785261103,
+          "f1-score": 0.9985376553741165,
+          "support": 4098.0
+        },
+        "suspect": {
+          "precision": 0.9998046493455753,
+          "recall": 0.9978553324234744,
+          "f1-score": 0.9988290398126464,
+          "support": 5129.0
+        },
+        "accuracy": 0.9986994689498212,
+        "macro avg": {
+          "precision": 0.9985634736503923,
+          "recall": 0.9988056554747924,
+          "f1-score": 0.9986833475933814,
+          "support": 9227.0
+        },
+        "weighted avg": {
+          "precision": 0.9987021592623717,
+          "recall": 0.9986994689498212,
+          "f1-score": 0.9986996268475337,
+          "support": 9227.0
+        }
+      },
+      "false_positive_rate": 0.000244,
+      "roc_auc_suspect": 0.999998,
+      "mean_probability_suspect": 0.555422,
+      "scenario_breakdown": [
+        {
+          "scenario_id": "S21",
+          "scenario_family": "scan_connect_large",
+          "rows": 1996.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S20",
+          "scenario_family": "scan_syn_large",
+          "rows": 1000.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N22",
+          "scenario_family": "normal_dns_burst",
+          "rows": 999.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N20",
+          "scenario_family": "normal_http_short",
+          "rows": 901.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N21",
+          "scenario_family": "normal_http_short",
+          "rows": 900.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N30",
+          "scenario_family": "normal_https_short",
+          "rows": 600.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S22",
+          "scenario_family": "scan_udp_large",
+          "rows": 598.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S25",
+          "scenario_family": "scan_syn_slow",
+          "rows": 405.0,
+          "accuracy": 0.9925925925925926,
+          "predicted_suspect_rate": 0.9925925925925926,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S24",
+          "scenario_family": "failed_connection_burst",
+          "rows": 400.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N23",
+          "scenario_family": "normal_ssh_short",
+          "rows": 301.0,
+          "accuracy": 0.9966777408637874,
+          "predicted_suspect_rate": 0.0033222591362126247,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S02",
+          "scenario_family": "scan_connect",
+          "rows": 258.0,
+          "accuracy": 0.9844961240310077,
+          "predicted_suspect_rate": 0.9844961240310077,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N24",
+          "scenario_family": "normal_wget_burst",
+          "rows": 240.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S23",
+          "scenario_family": "syn_burst_multiport",
+          "rows": 200.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S01",
+          "scenario_family": "scan_syn",
+          "rows": 128.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N31",
+          "scenario_family": "normal_https_download",
+          "rows": 80.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S30",
+          "scenario_family": "ssh_bruteforce_light",
+          "rows": 64.0,
+          "accuracy": 0.9375,
+          "predicted_suspect_rate": 0.9375,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S31",
+          "scenario_family": "web_probe_https",
+          "rows": 60.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N36",
+          "scenario_family": "normal_admin_mixed",
+          "rows": 50.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N35",
+          "scenario_family": "normal_scp",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S05",
+          "scenario_family": "syn_burst",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N07",
+          "scenario_family": "normal_bulk_tcp",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N01",
+          "scenario_family": "normal_icmp",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N02",
+          "scenario_family": "normal_http",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N03",
+          "scenario_family": "normal_http",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N06",
+          "scenario_family": "normal_dns",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N11",
+          "scenario_family": "normal_wget",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        }
+      ]
+    },
+    "test": {
+      "rows": 8373,
+      "label_counts": {
+        "suspect": 4734,
+        "normal": 3639
+      },
+      "accuracy": 0.999522,
+      "balanced_accuracy": 0.999482,
+      "precision_suspect": 0.999367,
+      "recall_suspect": 0.999789,
+      "f1_suspect": 0.999578,
+      "confusion_matrix": [
+        [
+          3636,
+          3
+        ],
+        [
+          1,
+          4733
+        ]
+      ],
+      "confusion_labels": [
+        "normal",
+        "suspect"
+      ],
+      "classification_report": {
+        "normal": {
+          "precision": 0.9997250481165796,
+          "recall": 0.9991755976916735,
+          "f1-score": 0.999450247388675,
+          "support": 3639.0
+        },
+        "suspect": {
+          "precision": 0.9993665540540541,
+          "recall": 0.9997887621461766,
+          "f1-score": 0.9995776135163674,
+          "support": 4734.0
+        },
+        "accuracy": 0.9995222739758748,
+        "macro avg": {
+          "precision": 0.9995458010853169,
+          "recall": 0.9994821799189251,
+          "f1-score": 0.9995139304525212,
+          "support": 8373.0
+        },
+        "weighted avg": {
+          "precision": 0.9995223596068463,
+          "recall": 0.9995222739758748,
+          "f1-score": 0.9995222587643464,
+          "support": 8373.0
+        }
+      },
+      "false_positive_rate": 0.000824,
+      "roc_auc_suspect": 0.999997,
+      "mean_probability_suspect": 0.565422,
+      "scenario_breakdown": [
+        {
+          "scenario_id": "S21",
+          "scenario_family": "scan_connect_large",
+          "rows": 1997.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S20",
+          "scenario_family": "scan_syn_large",
+          "rows": 1000.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N20",
+          "scenario_family": "normal_http_short",
+          "rows": 905.0,
+          "accuracy": 0.9977900552486187,
+          "predicted_suspect_rate": 0.0022099447513812156,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N21",
+          "scenario_family": "normal_http_short",
+          "rows": 900.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N30",
+          "scenario_family": "normal_https_short",
+          "rows": 900.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S22",
+          "scenario_family": "scan_udp_large",
+          "rows": 598.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N22",
+          "scenario_family": "normal_dns_burst",
+          "rows": 499.0,
+          "accuracy": 0.9979959919839679,
+          "predicted_suspect_rate": 0.002004008016032064,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S02",
+          "scenario_family": "scan_connect",
+          "rows": 254.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S23",
+          "scenario_family": "syn_burst_multiport",
+          "rows": 201.0,
+          "accuracy": 0.9950248756218906,
+          "predicted_suspect_rate": 0.9950248756218906,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S24",
+          "scenario_family": "failed_connection_burst",
+          "rows": 200.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S25",
+          "scenario_family": "scan_syn_slow",
+          "rows": 200.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N23",
+          "scenario_family": "normal_ssh_short",
+          "rows": 150.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S01",
+          "scenario_family": "scan_syn",
+          "rows": 128.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N24",
+          "scenario_family": "normal_wget_burst",
+          "rows": 120.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N31",
+          "scenario_family": "normal_https_download",
+          "rows": 84.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S30",
+          "scenario_family": "ssh_bruteforce_light",
+          "rows": 60.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S31",
+          "scenario_family": "web_probe_https",
+          "rows": 60.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N36",
+          "scenario_family": "normal_admin_mixed",
+          "rows": 51.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N35",
+          "scenario_family": "normal_scp",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S05",
+          "scenario_family": "syn_burst",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S03",
+          "scenario_family": "scan_udp",
+          "rows": 15.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N01",
+          "scenario_family": "normal_icmp",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N02",
+          "scenario_family": "normal_http",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N03",
+          "scenario_family": "normal_http",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N07",
+          "scenario_family": "normal_bulk_tcp",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N06",
+          "scenario_family": "normal_dns",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N11",
+          "scenario_family": "normal_wget",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S06",
+          "scenario_family": "icmp_burst",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        }
+      ]
+    }
+  },
+  "baseline_v1": {
+    "validation": {
+      "rows": 9227,
+      "label_counts": {
+        "suspect": 5129,
+        "normal": 4098
+      },
+      "accuracy": 0.724829,
+      "balanced_accuracy": 0.693428,
+      "precision_suspect": 0.674858,
+      "recall_suspect": 0.974459,
+      "f1_suspect": 0.797447,
+      "confusion_matrix": [
+        [
+          1690,
+          2408
+        ],
+        [
+          131,
+          4998
+        ]
+      ],
+      "confusion_labels": [
+        "normal",
+        "suspect"
+      ],
+      "classification_report": {
+        "normal": {
+          "precision": 0.9280615046677649,
+          "recall": 0.41239629087359686,
+          "f1-score": 0.5710424058117926,
+          "support": 4098.0
+        },
+        "suspect": {
+          "precision": 0.6748582230623819,
+          "recall": 0.9744589588613765,
+          "f1-score": 0.7974471479856402,
+          "support": 5129.0
+        },
+        "accuracy": 0.724829305299664,
+        "macro avg": {
+          "precision": 0.8014598638650734,
+          "recall": 0.6934276248674867,
+          "f1-score": 0.6842447768987163,
+          "support": 9227.0
+        },
+        "weighted avg": {
+          "precision": 0.7873137392668752,
+          "recall": 0.724829305299664,
+          "f1-score": 0.6968937033743442,
+          "support": 9227.0
+        }
+      },
+      "false_positive_rate": 0.587604,
+      "roc_auc_suspect": 0.981655,
+      "mean_probability_suspect": 0.720089,
+      "scenario_breakdown": [
+        {
+          "scenario_id": "S21",
+          "scenario_family": "scan_connect_large",
+          "rows": 1996.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S20",
+          "scenario_family": "scan_syn_large",
+          "rows": 1000.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N22",
+          "scenario_family": "normal_dns_burst",
+          "rows": 999.0,
+          "accuracy": 0.056056056056056056,
+          "predicted_suspect_rate": 0.943943943943944,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N20",
+          "scenario_family": "normal_http_short",
+          "rows": 901.0,
+          "accuracy": 0.9855715871254163,
+          "predicted_suspect_rate": 0.014428412874583796,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N21",
+          "scenario_family": "normal_http_short",
+          "rows": 900.0,
+          "accuracy": 0.08222222222222222,
+          "predicted_suspect_rate": 0.9177777777777778,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N30",
+          "scenario_family": "normal_https_short",
+          "rows": 600.0,
+          "accuracy": 0.525,
+          "predicted_suspect_rate": 0.475,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S22",
+          "scenario_family": "scan_udp_large",
+          "rows": 598.0,
+          "accuracy": 0.9983277591973244,
+          "predicted_suspect_rate": 0.9983277591973244,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S25",
+          "scenario_family": "scan_syn_slow",
+          "rows": 405.0,
+          "accuracy": 0.9925925925925926,
+          "predicted_suspect_rate": 0.9925925925925926,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S24",
+          "scenario_family": "failed_connection_burst",
+          "rows": 400.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N23",
+          "scenario_family": "normal_ssh_short",
+          "rows": 301.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S02",
+          "scenario_family": "scan_connect",
+          "rows": 258.0,
+          "accuracy": 0.9844961240310077,
+          "predicted_suspect_rate": 0.9844961240310077,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N24",
+          "scenario_family": "normal_wget_burst",
+          "rows": 240.0,
+          "accuracy": 0.016666666666666666,
+          "predicted_suspect_rate": 0.9833333333333333,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S23",
+          "scenario_family": "syn_burst_multiport",
+          "rows": 200.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S01",
+          "scenario_family": "scan_syn",
+          "rows": 128.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N31",
+          "scenario_family": "normal_https_download",
+          "rows": 80.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S30",
+          "scenario_family": "ssh_bruteforce_light",
+          "rows": 64.0,
+          "accuracy": 0.015625,
+          "predicted_suspect_rate": 0.015625,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S31",
+          "scenario_family": "web_probe_https",
+          "rows": 60.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N36",
+          "scenario_family": "normal_admin_mixed",
+          "rows": 50.0,
+          "accuracy": 0.94,
+          "predicted_suspect_rate": 0.06,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N35",
+          "scenario_family": "normal_scp",
+          "rows": 20.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S05",
+          "scenario_family": "syn_burst",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N07",
+          "scenario_family": "normal_bulk_tcp",
+          "rows": 2.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N01",
+          "scenario_family": "normal_icmp",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N02",
+          "scenario_family": "normal_http",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N03",
+          "scenario_family": "normal_http",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N06",
+          "scenario_family": "normal_dns",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N11",
+          "scenario_family": "normal_wget",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        }
+      ]
+    },
+    "test": {
+      "rows": 8373,
+      "label_counts": {
+        "suspect": 4734,
+        "normal": 3639
+      },
+      "accuracy": 0.794697,
+      "balanced_accuracy": 0.76775,
+      "precision_suspect": 0.742949,
+      "recall_suspect": 0.973807,
+      "f1_suspect": 0.842856,
+      "confusion_matrix": [
+        [
+          2044,
+          1595
+        ],
+        [
+          124,
+          4610
+        ]
+      ],
+      "confusion_labels": [
+        "normal",
+        "suspect"
+      ],
+      "classification_report": {
+        "normal": {
+          "precision": 0.9428044280442804,
+          "recall": 0.5616927727397637,
+          "f1-score": 0.7039779576373343,
+          "support": 3639.0
+        },
+        "suspect": {
+          "precision": 0.7429492344883158,
+          "recall": 0.9738065061258978,
+          "f1-score": 0.8428558369137947,
+          "support": 4734.0
+        },
+        "accuracy": 0.7946972411322106,
+        "macro avg": {
+          "precision": 0.8428768312662982,
+          "recall": 0.7677496394328307,
+          "f1-score": 0.7734168972755645,
+          "support": 8373.0
+        },
+        "weighted avg": {
+          "precision": 0.8298085500681743,
+          "recall": 0.7946972411322106,
+          "f1-score": 0.7824979481419042,
+          "support": 8373.0
+        }
+      },
+      "false_positive_rate": 0.438307,
+      "roc_auc_suspect": 0.980051,
+      "mean_probability_suspect": 0.711307,
+      "scenario_breakdown": [
+        {
+          "scenario_id": "S21",
+          "scenario_family": "scan_connect_large",
+          "rows": 1997.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S20",
+          "scenario_family": "scan_syn_large",
+          "rows": 1000.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N20",
+          "scenario_family": "normal_http_short",
+          "rows": 905.0,
+          "accuracy": 0.9933701657458563,
+          "predicted_suspect_rate": 0.0066298342541436465,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N21",
+          "scenario_family": "normal_http_short",
+          "rows": 900.0,
+          "accuracy": 0.23222222222222222,
+          "predicted_suspect_rate": 0.7677777777777778,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N30",
+          "scenario_family": "normal_https_short",
+          "rows": 900.0,
+          "accuracy": 0.61,
+          "predicted_suspect_rate": 0.39,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S22",
+          "scenario_family": "scan_udp_large",
+          "rows": 598.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N22",
+          "scenario_family": "normal_dns_burst",
+          "rows": 499.0,
+          "accuracy": 0.342685370741483,
+          "predicted_suspect_rate": 0.657314629258517,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S02",
+          "scenario_family": "scan_connect",
+          "rows": 254.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S23",
+          "scenario_family": "syn_burst_multiport",
+          "rows": 201.0,
+          "accuracy": 0.9950248756218906,
+          "predicted_suspect_rate": 0.9950248756218906,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S24",
+          "scenario_family": "failed_connection_burst",
+          "rows": 200.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S25",
+          "scenario_family": "scan_syn_slow",
+          "rows": 200.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N23",
+          "scenario_family": "normal_ssh_short",
+          "rows": 150.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S01",
+          "scenario_family": "scan_syn",
+          "rows": 128.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N24",
+          "scenario_family": "normal_wget_burst",
+          "rows": 120.0,
+          "accuracy": 0.05,
+          "predicted_suspect_rate": 0.95,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N31",
+          "scenario_family": "normal_https_download",
+          "rows": 84.0,
+          "accuracy": 0.03571428571428571,
+          "predicted_suspect_rate": 0.9642857142857143,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S30",
+          "scenario_family": "ssh_bruteforce_light",
+          "rows": 60.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S31",
+          "scenario_family": "web_probe_https",
+          "rows": 60.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N36",
+          "scenario_family": "normal_admin_mixed",
+          "rows": 51.0,
+          "accuracy": 0.9607843137254902,
+          "predicted_suspect_rate": 0.0392156862745098,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N35",
+          "scenario_family": "normal_scp",
+          "rows": 20.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S05",
+          "scenario_family": "syn_burst",
+          "rows": 20.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "S03",
+          "scenario_family": "scan_udp",
+          "rows": 15.0,
+          "accuracy": 0.8,
+          "predicted_suspect_rate": 0.8,
+          "true_suspect_rate": 1.0
+        },
+        {
+          "scenario_id": "N01",
+          "scenario_family": "normal_icmp",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N02",
+          "scenario_family": "normal_http",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N03",
+          "scenario_family": "normal_http",
+          "rows": 2.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N07",
+          "scenario_family": "normal_bulk_tcp",
+          "rows": 2.0,
+          "accuracy": 0.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N06",
+          "scenario_family": "normal_dns",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "N11",
+          "scenario_family": "normal_wget",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 0.0,
+          "true_suspect_rate": 0.0
+        },
+        {
+          "scenario_id": "S06",
+          "scenario_family": "icmp_burst",
+          "rows": 1.0,
+          "accuracy": 1.0,
+          "predicted_suspect_rate": 1.0,
+          "true_suspect_rate": 1.0
+        }
+      ]
+    }
+  }
+}

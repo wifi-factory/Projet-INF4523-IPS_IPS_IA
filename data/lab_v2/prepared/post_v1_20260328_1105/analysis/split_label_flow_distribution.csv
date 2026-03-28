@@ -1,0 +1,7 @@
+split,label_binary,flow_count
+test,normal,5217
+test,suspect,1813
+train,normal,14075
+train,suspect,26248
+validation,normal,4981
+validation,suspect,2001

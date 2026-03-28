@@ -7,6 +7,8 @@ from .blocking_service import BlockingService
 from .dataset_service import DatasetService
 from .detection_service import DetectionService
 from .feature_service import FeatureService
+from .live_capture_service import LiveCaptureService
+from .live_runtime_service import LiveRuntimeService
 from .model_service import ModelService
 from .replay_service import ReplayService
 from .schema_service import SchemaService
@@ -22,6 +24,8 @@ class ServiceContainer:
     blocking_service: BlockingService
     detection_service: DetectionService
     replay_service: ReplayService
+    live_capture_service: LiveCaptureService
+    live_runtime_service: LiveRuntimeService
 
 
 def build_service_container(settings: Settings | None = None) -> ServiceContainer:
@@ -43,6 +47,13 @@ def build_service_container(settings: Settings | None = None) -> ServiceContaine
         dataset_service=dataset_service,
         detection_service=detection_service,
     )
+    live_capture_service = LiveCaptureService(resolved_settings)
+    live_runtime_service = LiveRuntimeService(
+        settings=resolved_settings,
+        schema_service=schema_service,
+        detection_service=detection_service,
+        live_capture_service=live_capture_service,
+    )
     return ServiceContainer(
         settings=resolved_settings,
         schema_service=schema_service,
@@ -52,4 +63,6 @@ def build_service_container(settings: Settings | None = None) -> ServiceContaine
         blocking_service=blocking_service,
         detection_service=detection_service,
         replay_service=replay_service,
+        live_capture_service=live_capture_service,
+        live_runtime_service=live_runtime_service,
     )

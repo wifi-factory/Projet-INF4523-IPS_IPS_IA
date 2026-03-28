@@ -1,0 +1,21 @@
+campaign_id,run_index,scenario_id,scenario_family,label_binary,source_host,target_host,pcap_name,started_at_utc,packet_count,status,notes
+v2_complement_20260328_1225,1,N31,normal_https_download,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N31_run01.pcap,2026-03-28T16:02:10Z,15618,ok,ubuntu repeated https downloads from meta3
+v2_complement_20260328_1225,2,N31,normal_https_download,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N31_run02.pcap,2026-03-28T16:02:40Z,14386,ok,ubuntu repeated https downloads from meta3
+v2_complement_20260328_1225,3,N31,normal_https_download,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N31_run03.pcap,2026-03-28T16:03:06Z,17960,ok,ubuntu repeated https downloads from meta3
+v2_complement_20260328_1225,4,N31,normal_https_download,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N31_run04.pcap,2026-03-28T16:04:00Z,32145,ok,ubuntu repeated https downloads from meta3
+v2_complement_20260328_1225,1,N35,normal_scp,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N35_run01.pcap,2026-03-28T16:06:14Z,3445,ok,ubuntu repeated scp to meta3
+v2_complement_20260328_1225,2,N35,normal_scp,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N35_run02.pcap,2026-03-28T16:06:41Z,3474,ok,ubuntu repeated scp to meta3
+v2_complement_20260328_1225,3,N35,normal_scp,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N35_run03.pcap,2026-03-28T16:07:04Z,3819,ok,ubuntu repeated scp to meta3
+v2_complement_20260328_1225,1,N36,normal_admin_mixed,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N36_run01.pcap,2026-03-28T16:07:33Z,2671,ok,ubuntu mixed ssh and scp admin activity to meta3
+v2_complement_20260328_1225,2,N36,normal_admin_mixed,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N36_run02.pcap,2026-03-28T16:08:42Z,2588,ok,ubuntu mixed ssh and scp admin activity to meta3
+v2_complement_20260328_1225,3,N36,normal_admin_mixed,normal,172.30.1.23,172.30.1.24,v2_complement_20260328_1225_N36_run03.pcap,2026-03-28T16:09:37Z,2568,ok,ubuntu mixed ssh and scp admin activity to meta3
+v2_complement_20260328_1225,1,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S23_run01.pcap,2026-03-28T16:10:26Z,248,ok,kali syn multiport burst meta3 ports 1-200
+v2_complement_20260328_1225,2,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S23_run02.pcap,2026-03-28T16:14:26Z,257,ok,kali syn multiport burst meta3 ports 1-200
+v2_complement_20260328_1225,3,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S23_run03.pcap,2026-03-28T16:18:23Z,232,ok,kali syn multiport burst meta3 ports 1-200
+v2_complement_20260328_1225,4,S23,syn_burst_multiport,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S23_run04.pcap,2026-03-28T16:22:10Z,246,ok,kali syn multiport burst meta3 ports 1-200
+v2_complement_20260328_1225,1,S30,ssh_bruteforce_light,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S30_run01.pcap,2026-03-28T16:25:54Z,1607,ok,kali repeated ssh auth failures to meta3
+v2_complement_20260328_1225,2,S30,ssh_bruteforce_light,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S30_run02.pcap,2026-03-28T16:28:11Z,1650,ok,kali repeated ssh auth failures to meta3
+v2_complement_20260328_1225,3,S30,ssh_bruteforce_light,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S30_run03.pcap,2026-03-28T16:30:36Z,1630,ok,kali repeated ssh auth failures to meta3
+v2_complement_20260328_1225,1,S31,web_probe_https,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S31_run01.pcap,2026-03-28T16:32:50Z,918,ok,kali repeated https web probing to meta3
+v2_complement_20260328_1225,2,S31,web_probe_https,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S31_run02.pcap,2026-03-28T16:33:03Z,913,ok,kali repeated https web probing to meta3
+v2_complement_20260328_1225,3,S31,web_probe_https,suspect,172.30.1.20,172.30.1.24,v2_complement_20260328_1225_S31_run03.pcap,2026-03-28T16:33:14Z,911,ok,kali repeated https web probing to meta3

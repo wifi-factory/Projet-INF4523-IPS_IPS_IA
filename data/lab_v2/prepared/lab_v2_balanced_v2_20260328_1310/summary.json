@@ -1,0 +1,64 @@
+{
+  "excluded_statuses": [
+    "scenario_error"
+  ],
+  "ignored_campaign_prefixes": [
+    "smoke_"
+  ],
+  "train_caps_v2": {
+    "N20": 120,
+    "N21": 120,
+    "N22": 180,
+    "N23": 120,
+    "N24": 100,
+    "N30": 140,
+    "N31": 80,
+    "N35": 20,
+    "N36": 50,
+    "S20": 350,
+    "S21": 500,
+    "S22": 250,
+    "S23": 180,
+    "S24": 160,
+    "S25": 160,
+    "S30": 60,
+    "S31": 60
+  },
+  "campaign_count": 5,
+  "capture_count": 210,
+  "all_flow_rows": 56041,
+  "all_label_counts": {
+    "suspect": 31233,
+    "normal": 24808
+  },
+  "train_source_rows": 36423,
+  "train_source_label_counts": {
+    "suspect": 19352,
+    "normal": 17071
+  },
+  "train_capped_rows": 16079,
+  "train_capped_label_counts": {
+    "suspect": 8240,
+    "normal": 7839
+  },
+  "train_balanced_rows": 15678,
+  "train_balanced_label_counts": {
+    "normal": 7839,
+    "suspect": 7839
+  },
+  "validation_clean_rows": 9227,
+  "validation_clean_label_counts": {
+    "suspect": 5129,
+    "normal": 4098
+  },
+  "test_clean_rows": 8373,
+  "test_clean_label_counts": {
+    "suspect": 4734,
+    "normal": 3639
+  },
+  "split_capture_counts": {
+    "train": 137,
+    "test": 37,
+    "validation": 36
+  }
+}
