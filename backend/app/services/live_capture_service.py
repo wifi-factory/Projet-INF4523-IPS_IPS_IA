@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import io
+import os
 import re
 import shutil
 import subprocess
@@ -33,6 +34,11 @@ TSHARK_FIELDS = [
     "icmp.type",
 ]
 INTERFACE_RE = re.compile(r"^\s*(?P<index>\d+)\.\s+(?P<label>.+?)\s*$")
+WINDOWS_INTERFACE_RE = re.compile(r"^(Enabled|Disabled|Dedicated|Loopback|Connected|Disconnected)\s+.+?\s+(?P<name>.+)$")
+COMMON_TSHARK_PATHS = (
+    Path(r"C:\Program Files\Wireshark\tshark.exe"),
+    Path(r"C:\Program Files (x86)\Wireshark\tshark.exe"),
+)
 
 
 def to_int(value: object, default: int = 0) -> int:
@@ -95,26 +101,44 @@ class LiveCaptureService:
         self.logger = get_logger(self.__class__.__name__)
 
     def list_interfaces(self) -> list[tuple[str, str]]:
-        executable = self._resolve_tshark_executable()
-        process = subprocess.run(
-            [executable, "-D"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if process.returncode != 0:
-            raise CaptureError(
-                process.stderr.strip()
-                or "Unable to list tshark interfaces."
+        tshark_error: CaptureError | None = None
+        try:
+            executable = self._resolve_tshark_executable()
+        except CaptureError as exc:
+            tshark_error = exc
+        else:
+            process = subprocess.run(
+                [executable, "-D"],
+                capture_output=True,
+                text=True,
+                check=False,
             )
+            if process.returncode == 0:
+                interfaces: list[tuple[str, str]] = []
+                for line in process.stdout.splitlines():
+                    match = INTERFACE_RE.match(line)
+                    if not match:
+                        continue
+                    interfaces.append((match.group("index"), line.strip()))
+                if interfaces:
+                    return interfaces
+            else:
+                tshark_error = CaptureError(
+                    process.stderr.strip()
+                    or "Unable to list tshark interfaces."
+                )
 
-        interfaces: list[tuple[str, str]] = []
-        for line in process.stdout.splitlines():
-            match = INTERFACE_RE.match(line)
-            if not match:
-                continue
-            interfaces.append((match.group("index"), line.strip()))
-        return interfaces
+        fallback_interfaces = self._fallback_list_interfaces()
+        if fallback_interfaces:
+            self.logger.warning(
+                "Falling back to OS interface discovery",
+                extra={"context": {"interfaces": fallback_interfaces}},
+            )
+            return fallback_interfaces
+
+        if tshark_error is not None:
+            raise tshark_error
+        return []
 
     def start_session(
         self,
@@ -252,6 +276,10 @@ class LiveCaptureService:
         if candidate.exists():
             return str(candidate)
 
+        for common_path in COMMON_TSHARK_PATHS:
+            if common_path.exists():
+                return str(common_path)
+
         resolved = shutil.which(configured)
         if resolved:
             return resolved
@@ -260,6 +288,113 @@ class LiveCaptureService:
             f"tshark executable not found: {configured}. "
             "Install Wireshark/tshark or set IPS_LIVE_TSHARK_PATH."
         )
+
+    def _fallback_list_interfaces(self) -> list[tuple[str, str]]:
+        if os.name == "nt":
+            interfaces = self._list_windows_interfaces()
+        else:
+            interfaces = self._list_posix_interfaces()
+
+        return [
+            (str(index), f"{index}. {label}")
+            for index, label in enumerate(interfaces, start=1)
+        ]
+
+    def _list_windows_interfaces(self) -> list[str]:
+        commands = [
+            [
+                "powershell",
+                "-NoProfile",
+                "-Command",
+                "Get-NetAdapter | Select-Object -ExpandProperty Name",
+            ],
+            ["netsh", "interface", "show", "interface"],
+        ]
+
+        for command in commands:
+            try:
+                process = subprocess.run(
+                    command,
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+            except OSError:
+                continue
+            if process.returncode != 0:
+                continue
+
+            parsed = self._parse_windows_interface_output(process.stdout)
+            if parsed:
+                return parsed
+        return []
+
+    @staticmethod
+    def _parse_windows_interface_output(output: str) -> list[str]:
+        interfaces: list[str] = []
+        for raw_line in output.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if line.startswith("Admin") or line.startswith("---"):
+                continue
+            match = WINDOWS_INTERFACE_RE.match(line)
+            if match:
+                name = match.group("name").strip()
+                parts = [part.strip() for part in re.split(r"\s{2,}", name) if part.strip()]
+                interfaces.append(parts[-1] if parts else name)
+                continue
+            if " " not in line:
+                interfaces.append(line)
+                continue
+            if line and not any(token in line for token in ("Enabled", "Disabled", "Dedicated", "Loopback")):
+                interfaces.append(line)
+        return interfaces
+
+    def _list_posix_interfaces(self) -> list[str]:
+        commands = [
+            ["ip", "-o", "link", "show"],
+            ["ifconfig", "-a"],
+        ]
+        for command in commands:
+            try:
+                process = subprocess.run(
+                    command,
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+            except OSError:
+                continue
+            if process.returncode != 0:
+                continue
+
+            parsed = self._parse_posix_interface_output(process.stdout)
+            if parsed:
+                return parsed
+        return []
+
+    @staticmethod
+    def _parse_posix_interface_output(output: str) -> list[str]:
+        interfaces: list[str] = []
+        for raw_line in output.splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            if ": " in line:
+                prefix = line.split(": ", 1)[0]
+                if prefix.isdigit():
+                    parts = line.split(":", 2)
+                    if len(parts) >= 2:
+                        name = parts[1].strip()
+                        if name:
+                            interfaces.append(name)
+                            continue
+            if not raw_line.startswith("\t") and not raw_line.startswith(" "):
+                name = line.split(":", 1)[0].strip()
+                if name:
+                    interfaces.append(name)
+        return interfaces
 
     @staticmethod
     def _build_command(

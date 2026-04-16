@@ -262,6 +262,7 @@ class LiveStatusResponse(BaseModel):
     started_at: str | None = None
     stopped_at: str | None = None
     last_event_at: str | None = None
+    last_alert_at: str | None = None
     uptime_seconds: float = 0.0
     packets_captured: int = 0
     packets_ignored: int = 0
@@ -287,3 +288,125 @@ class LiveInterfacesResponse(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     interfaces: list[LiveInterfaceInfo] = Field(default_factory=list)
+
+
+class LiveEventRecordResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    event_id: str
+    timestamp: str
+    src_ip: str
+    dst_ip: str
+    src_port: int | None = None
+    dst_port: int | None = None
+    protocol: str
+    packet_count: int
+    byte_count: int
+    duration_ms: float
+    tcp_flags: str | None = None
+    entropy: float | None = None
+    prediction_label: str
+    raw_prediction_label: str | None = None
+    risk_score: float | None = None
+    severity: str
+    attack_type: str
+    action_taken: str
+    status: str
+    blocked: bool = False
+    flow_id: str | None = None
+    source: str = "live_runtime"
+
+
+class LiveAlertRecordResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    alert_id: str
+    timestamp: str
+    attack_type: str
+    severity: str
+    src_ip: str
+    dst_ip: str
+    description: str
+    recommendation: str
+    action_taken: str
+    status: str
+    risk_score: float | None = None
+    flow_started_at: str | None = None
+    flow_ended_at: str | None = None
+    flow_finalized_at: str | None = None
+    prediction_done_at: str | None = None
+    alert_created_at: str | None = None
+    latency_from_flow_end_ms: float | None = None
+    latency_from_finalization_ms: float | None = None
+
+
+class LiveAlertPulseResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    source: str = "live_runtime_memory"
+    api_exposed_at: str
+    total_available: int = 0
+    new_alert_count: int = 0
+    latest_alert: LiveAlertRecordResponse | None = None
+
+
+class LiveBlockingRecordResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    block_id: str
+    timestamp: str
+    src_ip: str
+    dst_ip: str
+    src_port: int | None = None
+    dst_port: int | None = None
+    protocol: str
+    predicted_label: str
+    confidence: float | None = None
+    reason: str
+    mode: str
+    triggered: bool
+    command_preview: str | None = None
+    status: str
+
+
+class LiveLogRecordResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    timestamp: str
+    level: str
+    component: str
+    message: str
+    category: str
+    source: str
+
+
+class LiveEventsResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    source: str = "live_runtime_memory"
+    total_available: int = 0
+    events: list[LiveEventRecordResponse] = Field(default_factory=list)
+
+
+class LiveAlertsResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    source: str = "live_runtime_memory"
+    total_available: int = 0
+    alerts: list[LiveAlertRecordResponse] = Field(default_factory=list)
+
+
+class LiveBlockingHistoryResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    source: str = "live_runtime_memory"
+    total_available: int = 0
+    blocking_events: list[LiveBlockingRecordResponse] = Field(default_factory=list)
+
+
+class LiveLogsResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    source: str = "live_runtime_memory"
+    total_available: int = 0
+    logs: list[LiveLogRecordResponse] = Field(default_factory=list)

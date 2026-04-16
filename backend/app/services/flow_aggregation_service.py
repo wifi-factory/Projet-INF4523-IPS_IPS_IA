@@ -2,13 +2,19 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from typing import Any
 
 import pandas as pd
 
 from ..config import Settings
 from ..core.logging import get_logger
+from ..utils.time_utils import utc_now_iso
+
+try:
+    from datetime import UTC  # Python 3.11+
+except ImportError:  # pragma: no cover - compatibility path
+    UTC = timezone.utc
 
 
 PROTO_MAP = {1: "ICMP", 6: "TCP", 17: "UDP"}
@@ -138,6 +144,7 @@ class FlowState:
             "end_ts": self.end_ts,
             "start_time": datetime.fromtimestamp(self.start_ts, UTC).isoformat(),
             "end_time": datetime.fromtimestamp(self.end_ts, UTC).isoformat(),
+            "flow_finalized_at": utc_now_iso(),
             "protocol": self.protocol,
             "src_ip": self.src_ip,
             "dst_ip": self.dst_ip,
@@ -196,9 +203,8 @@ class FlowAggregationService:
         completed = self.expire_flows(packet.timestamp)
         key = self._build_key(packet)
         flow = self._active.get(key)
-        timeout = self._timeout_for_protocol(packet.protocol)
 
-        if flow is None or (packet.timestamp - flow.last_ts) > timeout:
+        if flow is None or (packet.timestamp - flow.last_ts) > self._timeout_for_flow(flow):
             if flow is not None:
                 completed.append(self._finalize_flow(key))
             flow = self._new_flow(packet)
@@ -226,7 +232,7 @@ class FlowAggregationService:
         now = current_ts if current_ts is not None else datetime.now(UTC).timestamp()
         completed: list[dict[str, Any]] = []
         for key, flow in list(self._active.items()):
-            timeout = self._timeout_for_protocol(flow.protocol)
+            timeout = self._timeout_for_flow(flow)
             expired = (now - flow.last_ts) > timeout
             too_long = (now - flow.start_ts) > self.settings.live_max_flow_duration_seconds
             if expired or too_long:
@@ -317,6 +323,24 @@ class FlowAggregationService:
         }
         return mapping.get(protocol, self.settings.live_udp_idle_timeout_seconds)
 
+    def _timeout_for_flow(self, flow: FlowState) -> float:
+        if self._is_short_lived_tcp_probe(flow):
+            return min(
+                self.settings.live_tcp_idle_timeout_seconds,
+                self.settings.live_tcp_probe_timeout_seconds,
+            )
+        return self._timeout_for_protocol(flow.protocol)
+
+    @staticmethod
+    def _is_short_lived_tcp_probe(flow: FlowState) -> bool:
+        return (
+            flow.protocol == "TCP"
+            and flow.packet_count_total <= 3
+            and flow.psh_count == 0
+            and flow.fin_count == 0
+            and flow.rst_count == 0
+        )
+
     def _should_finalize_immediately(self, flow: FlowState, packet: PacketEvent) -> bool:
         if flow.protocol == "TCP" and (packet.fin > 0 or packet.rst > 0):
             return True
@@ -371,21 +395,18 @@ class FlowAggregationService:
         frame["distinct_dst_ports_per_5s"] = distinct_ports_5s
         frame["distinct_dst_ips_per_5s"] = distinct_ips_5s
         frame["icmp_packets_per_1s"] = icmp_packets_1s
-        frame["failed_connection_ratio"] = frame.apply(
-            lambda row: round(
-                1.0
-                if (
-                    row["protocol"] == "TCP"
-                    and row["syn_count"] > 0
-                    and row["ack_count"] == 0
-                )
-                else (
-                    min(1.0, row["rst_count"] / max(1, row["syn_count"]))
-                    if row["protocol"] == "TCP"
-                    else 0.0
-                ),
-                6,
-            ),
-            axis=1,
-        )
+        frame["failed_connection_ratio"] = 0.0
+        tcp_mask = frame["protocol"].eq("TCP")
+        syn_only_mask = tcp_mask & frame["syn_count"].gt(0) & frame["ack_count"].eq(0)
+        frame.loc[syn_only_mask, "failed_connection_ratio"] = 1.0
+
+        tcp_with_ack_mask = tcp_mask & ~syn_only_mask
+        if tcp_with_ack_mask.any():
+            ratios = (
+                frame.loc[tcp_with_ack_mask, "rst_count"]
+                / frame.loc[tcp_with_ack_mask, "syn_count"].clip(lower=1)
+            ).clip(upper=1.0)
+            frame.loc[tcp_with_ack_mask, "failed_connection_ratio"] = ratios
+
+        frame["failed_connection_ratio"] = frame["failed_connection_ratio"].round(6)
         return frame

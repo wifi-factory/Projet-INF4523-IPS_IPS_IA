@@ -1,0 +1,127 @@
+{
+  "interfaces": {
+    "interfaces": [
+      {
+        "index": "1",
+        "label": "1. enp0s8"
+      },
+      {
+        "index": "2",
+        "label": "2. enp0s3"
+      },
+      {
+        "index": "3",
+        "label": "3. any"
+      },
+      {
+        "index": "4",
+        "label": "4. lo (Loopback)"
+      },
+      {
+        "index": "5",
+        "label": "5. bluetooth-monitor"
+      },
+      {
+        "index": "6",
+        "label": "6. nflog"
+      },
+      {
+        "index": "7",
+        "label": "7. nfqueue"
+      },
+      {
+        "index": "8",
+        "label": "8. dbus-system"
+      },
+      {
+        "index": "9",
+        "label": "9. dbus-session"
+      },
+      {
+        "index": "10",
+        "label": "10. ciscodump (Cisco remote capture)"
+      },
+      {
+        "index": "11",
+        "label": "11. dpauxmon (DisplayPort AUX channel monitor capture)"
+      },
+      {
+        "index": "12",
+        "label": "12. randpkt (Random packet generator)"
+      },
+      {
+        "index": "13",
+        "label": "13. sdjournal (systemd Journal Export)"
+      },
+      {
+        "index": "14",
+        "label": "14. sshdump (SSH remote capture)"
+      },
+      {
+        "index": "15",
+        "label": "15. udpdump (UDP Listener remote capture)"
+      },
+      {
+        "index": "16",
+        "label": "16. wifidump (Wi-Fi remote capture)"
+      }
+    ]
+  },
+  "status_after_ping": {
+    "running": true,
+    "interface_name": "2",
+    "packets_captured": 170,
+    "finalized_flows": 0,
+    "predictions": 0,
+    "alerts": 0,
+    "block_decisions": 0,
+    "last_predicted_label": null,
+    "last_errors": []
+  },
+  "events_after_ping": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "events": []
+  },
+  "alerts_after_ping": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "alerts": []
+  },
+  "status_after_scan": {
+    "running": true,
+    "interface_name": "2",
+    "packets_captured": 436,
+    "finalized_flows": 0,
+    "predictions": 0,
+    "alerts": 0,
+    "block_decisions": 0,
+    "last_predicted_label": null,
+    "last_confidence": null,
+    "last_errors": []
+  },
+  "events_after_scan": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "events": []
+  },
+  "alerts_after_scan": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "alerts": []
+  },
+  "blocking_after_scan": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "blocking_events": []
+  },
+  "stop_final": {
+    "status": "stopped",
+    "packets_captured": 436,
+    "finalized_flows": 1,
+    "predictions": 1,
+    "alerts": 0,
+    "block_decisions": 0,
+    "last_errors": []
+  }
+}

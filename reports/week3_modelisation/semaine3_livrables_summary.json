@@ -1,0 +1,302 @@
+{
+  "generated_at_utc": "2026-04-06T12:08:11.039414+00:00",
+  "week": 3,
+  "scope": "Modelisation IA et detection d'intrusions",
+  "deliverables": {
+    "trained_model": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\models\\random_forest_lab_v2.joblib",
+    "model_metadata": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\models\\random_forest_lab_v2_metadata.json",
+    "performance_report_source": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\reports\\model_training\\random_forest_lab_v2_eval_20260328_125648.json",
+    "intermediate_report_markdown": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\reports\\week3_modelisation\\rapport_intermediaire_performance_semaine3.md",
+    "intermediate_report_docx": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\reports\\week3_modelisation\\rapport_intermediaire_performance_semaine3.docx",
+    "performance_csv": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\reports\\week3_modelisation\\performance_modele_semaine3.csv",
+    "detection_sources_index": "K:\\4. UQO\\04. INF4523 - R\u00e9seaux d'ordinateurs\\Projet-INF4523-IPS_IPS_IA\\reports\\week3_modelisation\\code_source_module_detection.md"
+  },
+  "model_type": "RandomForestClassifier",
+  "dataset_view_id": "lab_v2_balanced_v2_20260328_1310",
+  "evaluation_test": {
+    "rows": 8373,
+    "label_counts": {
+      "suspect": 4734,
+      "normal": 3639
+    },
+    "accuracy": 0.999522,
+    "balanced_accuracy": 0.999482,
+    "precision_suspect": 0.999367,
+    "recall_suspect": 0.999789,
+    "f1_suspect": 0.999578,
+    "confusion_matrix": [
+      [
+        3636,
+        3
+      ],
+      [
+        1,
+        4733
+      ]
+    ],
+    "confusion_labels": [
+      "normal",
+      "suspect"
+    ],
+    "classification_report": {
+      "normal": {
+        "precision": 0.9997250481165796,
+        "recall": 0.9991755976916735,
+        "f1-score": 0.999450247388675,
+        "support": 3639.0
+      },
+      "suspect": {
+        "precision": 0.9993665540540541,
+        "recall": 0.9997887621461766,
+        "f1-score": 0.9995776135163674,
+        "support": 4734.0
+      },
+      "accuracy": 0.9995222739758748,
+      "macro avg": {
+        "precision": 0.9995458010853169,
+        "recall": 0.9994821799189251,
+        "f1-score": 0.9995139304525212,
+        "support": 8373.0
+      },
+      "weighted avg": {
+        "precision": 0.9995223596068463,
+        "recall": 0.9995222739758748,
+        "f1-score": 0.9995222587643464,
+        "support": 8373.0
+      }
+    },
+    "false_positive_rate": 0.000824,
+    "roc_auc_suspect": 0.999997,
+    "mean_probability_suspect": 0.565422,
+    "scenario_breakdown": [
+      {
+        "scenario_id": "S21",
+        "scenario_family": "scan_connect_large",
+        "rows": 1997.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "S20",
+        "scenario_family": "scan_syn_large",
+        "rows": 1000.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "N20",
+        "scenario_family": "normal_http_short",
+        "rows": 905.0,
+        "accuracy": 0.9977900552486187,
+        "predicted_suspect_rate": 0.0022099447513812156,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N21",
+        "scenario_family": "normal_http_short",
+        "rows": 900.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N30",
+        "scenario_family": "normal_https_short",
+        "rows": 900.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "S22",
+        "scenario_family": "scan_udp_large",
+        "rows": 598.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "N22",
+        "scenario_family": "normal_dns_burst",
+        "rows": 499.0,
+        "accuracy": 0.9979959919839679,
+        "predicted_suspect_rate": 0.002004008016032064,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "S02",
+        "scenario_family": "scan_connect",
+        "rows": 254.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "S23",
+        "scenario_family": "syn_burst_multiport",
+        "rows": 201.0,
+        "accuracy": 0.9950248756218906,
+        "predicted_suspect_rate": 0.9950248756218906,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "S24",
+        "scenario_family": "failed_connection_burst",
+        "rows": 200.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "S25",
+        "scenario_family": "scan_syn_slow",
+        "rows": 200.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "N23",
+        "scenario_family": "normal_ssh_short",
+        "rows": 150.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "S01",
+        "scenario_family": "scan_syn",
+        "rows": 128.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "N24",
+        "scenario_family": "normal_wget_burst",
+        "rows": 120.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N31",
+        "scenario_family": "normal_https_download",
+        "rows": 84.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "S30",
+        "scenario_family": "ssh_bruteforce_light",
+        "rows": 60.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "S31",
+        "scenario_family": "web_probe_https",
+        "rows": 60.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "N36",
+        "scenario_family": "normal_admin_mixed",
+        "rows": 51.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N35",
+        "scenario_family": "normal_scp",
+        "rows": 20.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "S05",
+        "scenario_family": "syn_burst",
+        "rows": 20.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "S03",
+        "scenario_family": "scan_udp",
+        "rows": 15.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      },
+      {
+        "scenario_id": "N01",
+        "scenario_family": "normal_icmp",
+        "rows": 2.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N02",
+        "scenario_family": "normal_http",
+        "rows": 2.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N03",
+        "scenario_family": "normal_http",
+        "rows": 2.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N07",
+        "scenario_family": "normal_bulk_tcp",
+        "rows": 2.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N06",
+        "scenario_family": "normal_dns",
+        "rows": 1.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "N11",
+        "scenario_family": "normal_wget",
+        "rows": 1.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 0.0,
+        "true_suspect_rate": 0.0
+      },
+      {
+        "scenario_id": "S06",
+        "scenario_family": "icmp_burst",
+        "rows": 1.0,
+        "accuracy": 1.0,
+        "predicted_suspect_rate": 1.0,
+        "true_suspect_rate": 1.0
+      }
+    ]
+  },
+  "notes": [
+    "Le depot materialise un pipeline RandomForest complet.",
+    "Aucun livrable equivalent complet n'a ete trouve pour XGBoost, SVM ou Autoencoder."
+  ]
+}

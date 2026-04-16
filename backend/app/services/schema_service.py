@@ -21,6 +21,7 @@ class FeatureContract:
     input_columns_before_encoding: tuple[str, ...]
     categorical_columns: tuple[str, ...]
     numeric_columns: tuple[str, ...]
+    feature_dtypes: dict[str, str]
     referenced_dataset_paths: dict[str, Path]
 
     @property
@@ -83,15 +84,24 @@ class SchemaService:
                 "Target column must not be part of the model input contract."
             )
 
-        categorical_columns = tuple(column for column in input_columns if column == "protocol")
-        numeric_columns = tuple(column for column in input_columns if column not in categorical_columns)
-
+        categorical_columns = tuple(
+            column for column in input_columns if column == "protocol"
+        )
+        numeric_columns = tuple(
+            column for column in input_columns if column not in categorical_columns
+        )
+        feature_dtypes = self._load_feature_dtypes(
+            raw_metadata=raw_metadata,
+            input_columns=input_columns,
+            categorical_columns=categorical_columns,
+        )
         referenced_dataset_paths = {
-            "train": Path(raw_metadata.get("train_path", self.settings.train_path)),
-            "validation": Path(
-                raw_metadata.get("validation_path", self.settings.validation_path)
-            ),
-            "test": Path(raw_metadata.get("test_path", self.settings.test_path)),
+            split: self._resolve_dataset_path(
+                raw_value=raw_metadata.get(f"{split}_path"),
+                fallback=self.settings.dataset_paths[split],
+                metadata_dir=path.parent,
+            )
+            for split in ("train", "validation", "test")
         }
 
         contract = FeatureContract(
@@ -104,6 +114,7 @@ class SchemaService:
             input_columns_before_encoding=input_columns,
             categorical_columns=categorical_columns,
             numeric_columns=numeric_columns,
+            feature_dtypes=feature_dtypes,
             referenced_dataset_paths=referenced_dataset_paths,
         )
         self.logger.info(
@@ -118,3 +129,101 @@ class SchemaService:
             },
         )
         return contract
+
+    def _load_feature_dtypes(
+        self,
+        *,
+        raw_metadata: dict[str, Any],
+        input_columns: tuple[str, ...],
+        categorical_columns: tuple[str, ...],
+    ) -> dict[str, str]:
+        raw_dtype_map = raw_metadata.get("runtime_feature_dtypes")
+        if raw_dtype_map is None:
+            self.logger.warning(
+                "Metadata is missing runtime feature dtypes; defaulting numeric features to float64 for portable inference.",
+                extra={
+                    "context": {
+                        "metadata_path": str(self.settings.metadata_path),
+                    }
+                },
+            )
+            return {
+                column: "string" if column in categorical_columns else "float64"
+                for column in input_columns
+            }
+
+        if not isinstance(raw_dtype_map, dict):
+            raise ConfigurationError("runtime_feature_dtypes must be a JSON object.")
+
+        missing_columns = sorted(set(input_columns) - set(raw_dtype_map))
+        extra_columns = sorted(set(raw_dtype_map) - set(input_columns))
+        if missing_columns or extra_columns:
+            problems: list[str] = []
+            if missing_columns:
+                problems.append(
+                    "missing: " + ", ".join(missing_columns)
+                )
+            if extra_columns:
+                problems.append(
+                    "unexpected: " + ", ".join(extra_columns)
+                )
+            raise ConfigurationError(
+                "runtime_feature_dtypes does not match the feature contract ("
+                + "; ".join(problems)
+                + ")."
+            )
+
+        normalized: dict[str, str] = {}
+        for column in input_columns:
+            normalized[column] = self._normalize_dtype_spec(
+                column=column,
+                dtype_spec=str(raw_dtype_map[column]),
+                categorical_columns=categorical_columns,
+            )
+        return normalized
+
+    @staticmethod
+    def _normalize_dtype_spec(
+        *,
+        column: str,
+        dtype_spec: str,
+        categorical_columns: tuple[str, ...],
+    ) -> str:
+        if column in categorical_columns:
+            return "string"
+
+        normalized = dtype_spec.strip().lower()
+        if normalized.startswith("int"):
+            return "int64"
+        if normalized in {"str", "string", "object"}:
+            raise ConfigurationError(
+                f"Feature {column} is numeric in the contract but its dtype is string-like."
+            )
+        return "float64"
+
+    def _resolve_dataset_path(
+        self,
+        *,
+        raw_value: Any,
+        fallback: Path,
+        metadata_dir: Path,
+    ) -> Path:
+        if fallback.exists():
+            return fallback
+
+        if raw_value in (None, ""):
+            return fallback
+
+        candidate = Path(str(raw_value))
+        if candidate.is_absolute():
+            return candidate
+
+        metadata_relative = (metadata_dir / candidate).resolve()
+        if metadata_relative.exists():
+            return metadata_relative
+
+        project_relative = (self.settings.project_root / candidate).resolve()
+        if project_relative.exists():
+            return project_relative
+
+        return fallback

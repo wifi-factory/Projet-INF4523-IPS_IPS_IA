@@ -1,0 +1,59 @@
+{
+  "status_after_ping": {
+    "running": true,
+    "interface_name": "2",
+    "packets_captured": 157,
+    "finalized_flows": 0,
+    "predictions": 0,
+    "alerts": 0,
+    "block_decisions": 0,
+    "last_predicted_label": null,
+    "last_errors": []
+  },
+  "events_after_ping": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "events": []
+  },
+  "alerts_after_ping": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "alerts": []
+  },
+  "status_after_scan": {
+    "running": true,
+    "interface_name": "2",
+    "packets_captured": 449,
+    "finalized_flows": 0,
+    "predictions": 0,
+    "alerts": 0,
+    "block_decisions": 0,
+    "last_predicted_label": null,
+    "last_confidence": null,
+    "last_errors": []
+  },
+  "events_after_scan": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "events": []
+  },
+  "alerts_after_scan": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "alerts": []
+  },
+  "blocking_after_scan": {
+    "source": "live_runtime_memory",
+    "total_available": 0,
+    "blocking_events": []
+  },
+  "stop_final": {
+    "status": "stopped",
+    "packets_captured": 449,
+    "finalized_flows": 5,
+    "predictions": 5,
+    "alerts": 3,
+    "block_decisions": 3,
+    "last_errors": []
+  }
+}

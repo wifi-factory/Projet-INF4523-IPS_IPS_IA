@@ -24,11 +24,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
 
-BASELINE_MODEL_PATH = Path(
-    r"K:\4. UQO\04. INF4523 - Réseaux d'ordinateurs\7. IPS - IA - INF4523 met a jour\models\random_forest_v1.joblib"
-)
-BASELINE_METADATA_PATH = Path(
-    r"K:\4. UQO\04. INF4523 - Réseaux d'ordinateurs\7. IPS - IA - INF4523 met a jour\models\random_forest_v1_metadata.json"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+BASELINE_MODEL_PATH = PROJECT_ROOT / "models" / "random_forest_v1.joblib"
+BASELINE_METADATA_PATH = (
+    PROJECT_ROOT / "models" / "random_forest_v1_metadata.json"
+    if (PROJECT_ROOT / "models" / "random_forest_v1_metadata.json").exists()
+    else PROJECT_ROOT / "models" / "random_forest_lab_v2_metadata.json"
 )
 
 
@@ -36,8 +37,37 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def ensure_dataset(df: pd.DataFrame, feature_columns: list[str], target_column: str) -> pd.DataFrame:
-    context_columns = [column for column in ("capture_id", "scenario_id", "scenario_family") if column in df.columns]
+def make_portable_path(path: Path) -> str:
+    resolved = path.resolve()
+    try:
+        return resolved.relative_to(PROJECT_ROOT).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
+def build_runtime_feature_dtypes(
+    frame: pd.DataFrame,
+    feature_columns: list[str],
+) -> dict[str, str]:
+    runtime_feature_dtypes: dict[str, str] = {}
+    for column in feature_columns:
+        if column == "protocol":
+            runtime_feature_dtypes[column] = "string"
+            continue
+        runtime_feature_dtypes[column] = str(frame.dtypes[column])
+    return runtime_feature_dtypes
+
+
+def ensure_dataset(
+    df: pd.DataFrame,
+    feature_columns: list[str],
+    target_column: str,
+) -> pd.DataFrame:
+    context_columns = [
+        column
+        for column in ("capture_id", "scenario_id", "scenario_family")
+        if column in df.columns
+    ]
     required = feature_columns + [target_column]
     missing = [column for column in required if column not in df.columns]
     if missing:
@@ -57,10 +87,16 @@ def build_pipeline(
     categorical_columns: list[str],
     model_params: dict[str, Any],
 ) -> Pipeline:
-    numeric_columns = [column for column in feature_columns if column not in categorical_columns]
+    numeric_columns = [
+        column for column in feature_columns if column not in categorical_columns
+    ]
     preprocessor = ColumnTransformer(
         transformers=[
-            ("categorical", OneHotEncoder(handle_unknown="ignore"), categorical_columns),
+            (
+                "categorical",
+                OneHotEncoder(handle_unknown="ignore"),
+                categorical_columns,
+            ),
             ("numeric", "passthrough", numeric_columns),
         ],
         remainder="drop",
@@ -68,7 +104,11 @@ def build_pipeline(
     )
     classifier = RandomForestClassifier(
         n_estimators=int(model_params["n_estimators"]),
-        max_depth=int(model_params["max_depth"]) if model_params["max_depth"] is not None else None,
+        max_depth=(
+            int(model_params["max_depth"])
+            if model_params["max_depth"] is not None
+            else None
+        ),
         min_samples_leaf=int(model_params["min_samples_leaf"]),
         max_features=model_params["max_features"],
         random_state=42,
@@ -100,15 +140,54 @@ def evaluate_model(
         "label_counts": y_true.value_counts().to_dict(),
         "accuracy": round(float(accuracy_score(y_true, y_pred)), 6),
         "balanced_accuracy": round(float(balanced_accuracy_score(y_true, y_pred)), 6),
-        "precision_suspect": round(float(precision_score(y_true, y_pred, pos_label=positive_label, zero_division=0)), 6),
-        "recall_suspect": round(float(recall_score(y_true, y_pred, pos_label=positive_label, zero_division=0)), 6),
-        "f1_suspect": round(float(f1_score(y_true, y_pred, pos_label=positive_label, zero_division=0)), 6),
-        "confusion_matrix": confusion_matrix(y_true, y_pred, labels=label_order).tolist(),
+        "precision_suspect": round(
+            float(
+                precision_score(
+                    y_true,
+                    y_pred,
+                    pos_label=positive_label,
+                    zero_division=0,
+                )
+            ),
+            6,
+        ),
+        "recall_suspect": round(
+            float(
+                recall_score(
+                    y_true,
+                    y_pred,
+                    pos_label=positive_label,
+                    zero_division=0,
+                )
+            ),
+            6,
+        ),
+        "f1_suspect": round(
+            float(
+                f1_score(
+                    y_true,
+                    y_pred,
+                    pos_label=positive_label,
+                    zero_division=0,
+                )
+            ),
+            6,
+        ),
+        "confusion_matrix": confusion_matrix(
+            y_true,
+            y_pred,
+            labels=label_order,
+        ).tolist(),
         "confusion_labels": label_order,
-        "classification_report": classification_report(y_true, y_pred, labels=label_order, output_dict=True, zero_division=0),
+        "classification_report": classification_report(
+            y_true,
+            y_pred,
+            labels=label_order,
+            output_dict=True,
+            zero_division=0,
+        ),
     }
 
-    # false positive rate for the suspect class
     if set(["normal", positive_label]).issubset(label_order):
         cm = confusion_matrix(y_true, y_pred, labels=["normal", positive_label])
         tn, fp, fn, tp = cm.ravel()
@@ -122,16 +201,35 @@ def evaluate_model(
             positive_index = classes.index(positive_label)
             positive_scores = probabilities[:, positive_index]
             try:
-                metrics["roc_auc_suspect"] = round(float(roc_auc_score((y_true == positive_label).astype(int), positive_scores)), 6)
+                metrics["roc_auc_suspect"] = round(
+                    float(
+                        roc_auc_score(
+                            (y_true == positive_label).astype(int),
+                            positive_scores,
+                        )
+                    ),
+                    6,
+                )
             except ValueError:
                 metrics["roc_auc_suspect"] = None
-            metrics["mean_probability_suspect"] = round(float(positive_scores.mean()), 6)
+            metrics["mean_probability_suspect"] = round(
+                float(positive_scores.mean()),
+                6,
+            )
 
     per_scenario = (
         pd.DataFrame(
             {
-                "scenario_id": frame["scenario_id"].astype(str).values if "scenario_id" in frame.columns else "unknown",
-                "scenario_family": frame["scenario_family"].astype(str).values if "scenario_family" in frame.columns else "unknown",
+                "scenario_id": (
+                    frame["scenario_id"].astype(str).values
+                    if "scenario_id" in frame.columns
+                    else "unknown"
+                ),
+                "scenario_family": (
+                    frame["scenario_family"].astype(str).values
+                    if "scenario_family" in frame.columns
+                    else "unknown"
+                ),
                 "y_true": y_true.values,
                 "y_pred": y_pred.values,
             }
@@ -142,8 +240,12 @@ def evaluate_model(
                 {
                     "rows": len(group),
                     "accuracy": accuracy_score(group["y_true"], group["y_pred"]),
-                    "predicted_suspect_rate": (group["y_pred"] == positive_label).mean(),
-                    "true_suspect_rate": (group["y_true"] == positive_label).mean(),
+                    "predicted_suspect_rate": (
+                        group["y_pred"] == positive_label
+                    ).mean(),
+                    "true_suspect_rate": (
+                        group["y_true"] == positive_label
+                    ).mean(),
                 }
             ),
             include_groups=False,
@@ -174,9 +276,15 @@ def markdown_report(
     lines.append("")
     lines.append("## New Model Metrics")
     lines.append("")
-    lines.append("| Split | Rows | Accuracy | Balanced Acc. | Precision suspect | Recall suspect | F1 suspect | FPR | ROC AUC |")
+    lines.append(
+        "| Split | Rows | Accuracy | Balanced Acc. | Precision suspect | Recall suspect | F1 suspect | FPR | ROC AUC |"
+    )
     lines.append("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
-    for name, metrics in [("train", train_metrics), ("validation", validation_metrics), ("test", test_metrics)]:
+    for name, metrics in [
+        ("train", train_metrics),
+        ("validation", validation_metrics),
+        ("test", test_metrics),
+    ]:
         lines.append(
             f"| {name} | {metrics['rows']} | {metrics['accuracy']:.4f} | {metrics['balanced_accuracy']:.4f} | "
             f"{metrics['precision_suspect']:.4f} | {metrics['recall_suspect']:.4f} | {metrics['f1_suspect']:.4f} | "
@@ -186,15 +294,23 @@ def markdown_report(
     if baseline_validation and baseline_test:
         lines.append("## Baseline Comparison (v1 on lab_v2)")
         lines.append("")
-        lines.append("| Model | Split | Accuracy | Balanced Acc. | Precision suspect | Recall suspect | F1 suspect | FPR | ROC AUC |")
+        lines.append(
+            "| Model | Split | Accuracy | Balanced Acc. | Precision suspect | Recall suspect | F1 suspect | FPR | ROC AUC |"
+        )
         lines.append("|---|---|---:|---:|---:|---:|---:|---:|---:|")
-        for split_name, metrics in [("validation", baseline_validation), ("test", baseline_test)]:
+        for split_name, metrics in [
+            ("validation", baseline_validation),
+            ("test", baseline_test),
+        ]:
             lines.append(
                 f"| baseline_v1 | {split_name} | {metrics['accuracy']:.4f} | {metrics['balanced_accuracy']:.4f} | "
                 f"{metrics['precision_suspect']:.4f} | {metrics['recall_suspect']:.4f} | {metrics['f1_suspect']:.4f} | "
                 f"{metrics.get('false_positive_rate', 0.0):.4f} | {metrics.get('roc_auc_suspect', 0.0) or 0.0:.4f} |"
             )
-        for split_name, metrics in [("validation", validation_metrics), ("test", test_metrics)]:
+        for split_name, metrics in [
+            ("validation", validation_metrics),
+            ("test", test_metrics),
+        ]:
             lines.append(
                 f"| random_forest_lab_v2 | {split_name} | {metrics['accuracy']:.4f} | {metrics['balanced_accuracy']:.4f} | "
                 f"{metrics['precision_suspect']:.4f} | {metrics['recall_suspect']:.4f} | {metrics['f1_suspect']:.4f} | "
@@ -204,10 +320,14 @@ def markdown_report(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Train and evaluate a RandomForest model on lab_v2_balanced_v2.")
+    parser = argparse.ArgumentParser(
+        description="Train and evaluate a RandomForest model on lab_v2_balanced_v2."
+    )
     parser.add_argument(
         "--prepared-dir",
-        default=str(Path("data") / "lab_v2" / "prepared" / "lab_v2_balanced_v2_20260328_1310"),
+        default=str(
+            Path("data") / "lab_v2" / "prepared" / "lab_v2_balanced_v2_20260328_1310"
+        ),
         help="Prepared dataset directory containing train_balanced/validation_clean/test_clean parquet files.",
     )
     parser.add_argument(
@@ -218,7 +338,7 @@ def main() -> int:
     parser.add_argument(
         "--baseline-metadata-path",
         default=str(BASELINE_METADATA_PATH),
-        help="Optional baseline metadata path to compare against and to reuse the feature contract.",
+        help="Metadata path used to recover the training feature contract and, when available, the v1 baseline.",
     )
     parser.add_argument(
         "--output-model-path",
@@ -245,33 +365,65 @@ def main() -> int:
     output_model_path.parent.mkdir(parents=True, exist_ok=True)
     output_metadata_path.parent.mkdir(parents=True, exist_ok=True)
 
-    baseline_metadata = load_json(Path(args.baseline_metadata_path))
+    contract_metadata_path = Path(args.baseline_metadata_path).resolve()
+    if not contract_metadata_path.exists():
+        raise FileNotFoundError(
+            f"Metadata contract file does not exist: {contract_metadata_path}"
+        )
+
+    baseline_metadata = load_json(contract_metadata_path)
     feature_columns = list(baseline_metadata["input_columns_before_encoding"])
     target_column = str(baseline_metadata["target_column"])
     positive_label = str(baseline_metadata["positive_label"])
-    categorical_columns = [column for column in feature_columns if column == "protocol"]
+    categorical_columns = [
+        column for column in feature_columns if column == "protocol"
+    ]
 
-    train_df = ensure_dataset(pd.read_parquet(prepared_dir / "train_balanced.parquet"), feature_columns, target_column)
-    validation_df = ensure_dataset(pd.read_parquet(prepared_dir / "validation_clean.parquet"), feature_columns, target_column)
-    test_df = ensure_dataset(pd.read_parquet(prepared_dir / "test_clean.parquet"), feature_columns, target_column)
+    train_df = ensure_dataset(
+        pd.read_parquet(prepared_dir / "train_balanced.parquet"),
+        feature_columns,
+        target_column,
+    )
+    validation_df = ensure_dataset(
+        pd.read_parquet(prepared_dir / "validation_clean.parquet"),
+        feature_columns,
+        target_column,
+    )
+    test_df = ensure_dataset(
+        pd.read_parquet(prepared_dir / "test_clean.parquet"),
+        feature_columns,
+        target_column,
+    )
 
     model_params = dict(baseline_metadata["selected_candidate"])
     pipeline = build_pipeline(feature_columns, categorical_columns, model_params)
     pipeline.fit(train_df[feature_columns], train_df[target_column])
 
     train_metrics = evaluate_model(
-        pipeline, train_df, feature_columns=feature_columns, target_column=target_column, positive_label=positive_label
+        pipeline,
+        train_df,
+        feature_columns=feature_columns,
+        target_column=target_column,
+        positive_label=positive_label,
     )
     validation_metrics = evaluate_model(
-        pipeline, validation_df, feature_columns=feature_columns, target_column=target_column, positive_label=positive_label
+        pipeline,
+        validation_df,
+        feature_columns=feature_columns,
+        target_column=target_column,
+        positive_label=positive_label,
     )
     test_metrics = evaluate_model(
-        pipeline, test_df, feature_columns=feature_columns, target_column=target_column, positive_label=positive_label
+        pipeline,
+        test_df,
+        feature_columns=feature_columns,
+        target_column=target_column,
+        positive_label=positive_label,
     )
 
     baseline_validation: dict[str, Any] | None = None
     baseline_test: dict[str, Any] | None = None
-    baseline_model_path = Path(args.baseline_model_path)
+    baseline_model_path = Path(args.baseline_model_path).resolve()
     if baseline_model_path.exists():
         baseline_model = joblib.load(baseline_model_path)
         baseline_validation = evaluate_model(
@@ -298,9 +450,15 @@ def main() -> int:
         "selected_candidate": model_params,
         "excluded_columns": baseline_metadata["excluded_columns"],
         "input_columns_before_encoding": feature_columns,
-        "train_path": str(prepared_dir / "train_balanced.parquet"),
-        "validation_path": str(prepared_dir / "validation_clean.parquet"),
-        "test_path": str(prepared_dir / "test_clean.parquet"),
+        "runtime_feature_dtypes": build_runtime_feature_dtypes(
+            train_df,
+            feature_columns,
+        ),
+        "train_path": make_portable_path(prepared_dir / "train_balanced.parquet"),
+        "validation_path": make_portable_path(
+            prepared_dir / "validation_clean.parquet"
+        ),
+        "test_path": make_portable_path(prepared_dir / "test_clean.parquet"),
         "dataset_view_id": prepared_dir.name,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "training_summary": {
@@ -308,7 +466,9 @@ def main() -> int:
             "validation_rows": len(validation_df),
             "test_rows": len(test_df),
             "train_label_counts": train_df[target_column].value_counts().to_dict(),
-            "validation_label_counts": validation_df[target_column].value_counts().to_dict(),
+            "validation_label_counts": validation_df[target_column]
+            .value_counts()
+            .to_dict(),
             "test_label_counts": test_df[target_column].value_counts().to_dict(),
         },
         "evaluation": {
@@ -327,7 +487,9 @@ def main() -> int:
                 "precision_suspect": validation_metrics["precision_suspect"],
                 "recall_suspect": validation_metrics["recall_suspect"],
                 "f1_suspect": validation_metrics["f1_suspect"],
-                "false_positive_rate": validation_metrics.get("false_positive_rate"),
+                "false_positive_rate": validation_metrics.get(
+                    "false_positive_rate"
+                ),
                 "roc_auc_suspect": validation_metrics.get("roc_auc_suspect"),
             },
             "test": {
@@ -341,15 +503,18 @@ def main() -> int:
             },
         },
     }
-    output_metadata_path.write_text(json.dumps(exported_metadata, indent=2), encoding="utf-8")
+    output_metadata_path.write_text(
+        json.dumps(exported_metadata, indent=2),
+        encoding="utf-8",
+    )
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     json_report_path = report_dir / f"random_forest_lab_v2_eval_{timestamp}.json"
     md_report_path = report_dir / f"random_forest_lab_v2_eval_{timestamp}.md"
     json_report = {
-        "model_path": str(output_model_path),
-        "metadata_path": str(output_metadata_path),
-        "prepared_dir": str(prepared_dir),
+        "model_path": make_portable_path(output_model_path),
+        "metadata_path": make_portable_path(output_metadata_path),
+        "prepared_dir": make_portable_path(prepared_dir),
         "new_model": {
             "train": train_metrics,
             "validation": validation_metrics,

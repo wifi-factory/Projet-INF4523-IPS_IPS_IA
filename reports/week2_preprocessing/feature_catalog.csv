@@ -1,0 +1,33 @@
+feature_name,category,dtype_train,included_in_model,week2_requirement,source,normalization_strategy,notes
+protocol,network_identity,object,True,protocoles,flow header,categorical cast + OneHotEncoder,Unique feature categorical retained in the final model contract.
+src_port,network_identity,int64,True,ports,flow header,integer coercion,Port source extracted at flow level.
+dst_port,network_identity,int64,True,ports,flow header,integer coercion,Port destination extracted at flow level.
+duration_ms,temporal,float64,True,duree des sessions,flow aggregation,float coercion,Session duration in milliseconds.
+packet_count_total,volume,int64,True,nombre de paquets,flow aggregation,integer coercion,Total packets observed in the flow.
+packet_count_fwd,volume,int64,True,nombre de paquets,flow aggregation,integer coercion,Forward-direction packet count.
+packet_count_bwd,volume,int64,True,nombre de paquets,flow aggregation,integer coercion,Backward-direction packet count.
+byte_count_total,volume,int64,True,taille,flow aggregation,integer coercion,Total bytes exchanged in the flow.
+byte_count_fwd,volume,int64,True,taille,flow aggregation,integer coercion,Forward-direction byte count.
+byte_count_bwd,volume,int64,True,taille,flow aggregation,integer coercion,Backward-direction byte count.
+pkt_len_min,packet_shape,int64,True,taille,flow aggregation,float coercion,Minimum observed packet length.
+pkt_len_max,packet_shape,int64,True,taille,flow aggregation,float coercion,Maximum observed packet length.
+pkt_len_mean,packet_shape,float64,True,taille,flow aggregation,float coercion,Mean packet length.
+pkt_len_std,packet_shape,float64,True,taille,flow aggregation,float coercion,Packet length dispersion.
+iat_min_ms,temporal,float64,True,duree des sessions,flow aggregation,float coercion,Minimum inter-arrival time.
+iat_max_ms,temporal,float64,True,duree des sessions,flow aggregation,float coercion,Maximum inter-arrival time.
+iat_mean_ms,temporal,float64,True,duree des sessions,flow aggregation,float coercion,Mean inter-arrival time.
+iat_std_ms,temporal,float64,True,duree des sessions,flow aggregation,float coercion,Inter-arrival time dispersion.
+syn_count,tcp_flags,int64,True,flags TCP,flow aggregation,integer coercion,Count of TCP SYN flags.
+ack_count,tcp_flags,int64,True,flags TCP,flow aggregation,integer coercion,Count of TCP ACK flags.
+rst_count,tcp_flags,int64,True,flags TCP,flow aggregation,integer coercion,Count of TCP RST flags.
+fin_count,tcp_flags,int64,True,flags TCP,flow aggregation,integer coercion,Count of TCP FIN flags.
+psh_count,tcp_flags,int64,True,flags TCP,flow aggregation,integer coercion,Count of TCP PSH flags.
+icmp_echo_req_count,icmp,int64,True,protocoles,flow aggregation,integer coercion,ICMP echo request count.
+icmp_echo_reply_count,icmp,int64,True,protocoles,flow aggregation,integer coercion,ICMP echo reply count.
+connections_per_1s,behavioral_window,int64,True,feature engineering comportemental,sliding window,float coercion,Short-window connection burst indicator.
+connections_per_5s,behavioral_window,int64,True,feature engineering comportemental,sliding window,float coercion,Longer-window connection burst indicator.
+distinct_dst_ports_per_5s,behavioral_window,int64,True,ports,sliding window,float coercion,Useful for scan-like multiport behavior.
+distinct_dst_ips_per_5s,behavioral_window,int64,True,feature engineering comportemental,sliding window,float coercion,Useful for multicible behavior.
+icmp_packets_per_1s,behavioral_window,int64,True,protocoles,sliding window,float coercion,ICMP burst feature.
+failed_connection_ratio,behavioral_window,float64,True,feature engineering comportemental,sliding window,float coercion,Tracks failed connection behavior.
+payload_entropy,payload_candidate,not_computed,False,entropie du payload,payload bytes,not implemented in final contract,"Mentioned in the week-2 objectives, but not retained in the final 31-feature flow-level contract. The deployed prototype relies on behavioral and transport-level indicators instead."

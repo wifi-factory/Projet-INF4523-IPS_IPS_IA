@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import json
 import logging
-from datetime import UTC, datetime
+from datetime import datetime, timezone
+
+try:
+    from datetime import UTC  # Python 3.11+
+except ImportError:  # pragma: no cover - compatibility path
+    UTC = timezone.utc
 
 
 class KeyValueFormatter(logging.Formatter):

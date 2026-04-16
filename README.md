@@ -153,9 +153,9 @@ Projet-INF4523-IPS_IPS_IA/
 
 ## Configuration des chemins
 
-Par defaut, l'application pointe vers les chemins reels observes dans les
-artefacts fournis. Les variables d'environnement suivantes permettent de les
-surcharger :
+Par defaut, l'application charge les artefacts versionnes dans le projet avec
+des chemins relatifs a la racine du depot. Les variables d'environnement
+suivantes permettent de les surcharger :
 
 - `IPS_MODEL_PATH`
 - `IPS_METADATA_PATH`
@@ -176,6 +176,15 @@ surcharger :
 - `IPS_LIVE_ALERT_CONFIDENCE_THRESHOLD`
 - `IPS_LIVE_BLOCK_CONFIDENCE_THRESHOLD`
 - `IPS_LIVE_STATUS_ERROR_LIMIT`
+
+Note de portabilite :
+
+- l'inference live et `POST /detect/flow` s'appuient sur le contrat embarque
+  dans `random_forest_lab_v2_metadata.json`, y compris les types runtime des
+  features ;
+- les fichiers parquet `train`, `validation`, `test` restent utiles pour
+  `GET /datasets/summary` et le mode replay, mais ne sont plus requis pour
+  demarrer le backend ni pour produire une prediction live.
 
 Calibration live recommandee :
 
@@ -217,6 +226,27 @@ Documentation interactive :
 
 - Swagger UI : [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - ReDoc : [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+## Dashboard live
+
+La dashboard Streamlit live est disponible dans `dashboard/` et consomme
+directement les endpoints live du backend.
+
+Lancement :
+
+```powershell
+streamlit run dashboard/app.py
+```
+
+Variables utiles :
+
+- `IPS_DASHBOARD_BACKEND_URL`
+- `IPS_DASHBOARD_REFRESH_SECONDS`
+- `IPS_DASHBOARD_REQUEST_TIMEOUT_SECONDS`
+- `IPS_DASHBOARD_EVENTS_LIMIT`
+- `IPS_DASHBOARD_ALERTS_LIMIT`
+- `IPS_DASHBOARD_BLOCKING_LIMIT`
+- `IPS_DASHBOARD_LOGS_LIMIT`
 
 ## Endpoints API
 
@@ -454,7 +484,7 @@ Le backend supporte maintenant une chaine live native :
 5. calcul des 31 features du contrat du modele
 6. appel de `detection_service`
 7. appel de `blocking_service`
-8. exposition d'un statut runtime exploitable par un dashboard
+8. exposition d'un statut runtime exploitable par un client externe
 
 Points de parite offline/live :
 
@@ -505,12 +535,10 @@ Sous-ensembles utiles :
   `dry_run` si la commande n'est pas applicable.
 - Le pipeline live garde les flux actifs en memoire ; il faudra une persistence
   ou un bus d'evenements pour monter en charge.
-- Le dashboard n'est pas encore livre ici.
 
 ## Evolutions futures
 
 - capture live depuis interface reseau
-- enrichissement des logs et export vers dashboard
 - gestion plus fine des politiques de blocage
 - instrumentation Linux reelle, securisee et reversible
 - reporting et traces d'evaluation

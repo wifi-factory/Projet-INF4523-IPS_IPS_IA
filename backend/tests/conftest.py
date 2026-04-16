@@ -240,6 +240,13 @@ def build_split_frame(start_index: int, specs: list[tuple[str, str]]) -> pd.Data
     )
 
 
+def build_runtime_feature_dtypes(frame: pd.DataFrame) -> dict[str, str]:
+    return {
+        column: ("string" if column == "protocol" else str(frame.dtypes[column]))
+        for column in INPUT_COLUMNS
+    }
+
+
 def make_synthetic_artifacts(root: Path) -> dict[str, Any]:
     data_dir = root / "data"
     models_dir = root / "models"
@@ -357,6 +364,7 @@ def make_synthetic_artifacts(root: Path) -> dict[str, Any]:
                 },
                 "excluded_columns": EXCLUDED_COLUMNS,
                 "input_columns_before_encoding": INPUT_COLUMNS,
+                "runtime_feature_dtypes": build_runtime_feature_dtypes(train_df),
                 "train_path": str(train_path),
                 "validation_path": str(validation_path),
                 "test_path": str(test_path),
@@ -454,12 +462,14 @@ def settings(synthetic_artifact_bundle) -> Settings:
         live_tshark_path="tshark",
         live_flush_interval_seconds=0.05,
         live_tcp_idle_timeout_seconds=0.2,
+        live_tcp_probe_timeout_seconds=0.05,
         live_udp_idle_timeout_seconds=0.2,
         live_icmp_idle_timeout_seconds=0.2,
         live_max_flow_duration_seconds=1.0,
         live_alert_confidence_threshold=0.95,
         live_block_confidence_threshold=0.99,
         live_status_error_limit=10,
+        live_history_limit=50,
     )
 
 
@@ -500,6 +510,7 @@ def synthetic_env(monkeypatch, synthetic_artifact_bundle):
     monkeypatch.setenv("IPS_LIVE_CAPTURE_FILTER", "ip")
     monkeypatch.setenv("IPS_LIVE_FLUSH_INTERVAL_SECONDS", "0.05")
     monkeypatch.setenv("IPS_LIVE_TCP_IDLE_TIMEOUT_SECONDS", "0.2")
+    monkeypatch.setenv("IPS_LIVE_TCP_PROBE_TIMEOUT_SECONDS", "0.05")
     monkeypatch.setenv("IPS_LIVE_UDP_IDLE_TIMEOUT_SECONDS", "0.2")
     monkeypatch.setenv("IPS_LIVE_ICMP_IDLE_TIMEOUT_SECONDS", "0.2")
     monkeypatch.setenv("IPS_LIVE_MAX_FLOW_DURATION_SECONDS", "1.0")

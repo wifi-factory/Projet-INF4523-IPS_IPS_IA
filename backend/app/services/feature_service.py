@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from typing import Any, Mapping, Sequence
 
 import pandas as pd
-from pandas.api.types import is_integer_dtype
 
 from ..core.exceptions import FeatureContractError
 from ..core.logging import get_logger
@@ -46,9 +45,12 @@ class FeatureService:
                 extra={"context": {"extra_features": extra_columns}},
             )
 
-        dtype_map = self.dataset_service.get_feature_dtypes(expected_columns)
         row = {
-            column: self._coerce_value(column, flow_features.get(column), dtype_map[column])
+            column: self._coerce_value(
+                column,
+                flow_features.get(column),
+                contract.feature_dtypes[column],
+            )
             for column in expected_columns
         }
         frame = pd.DataFrame([row], columns=expected_columns)
@@ -58,13 +60,10 @@ class FeatureService:
         self,
         feature_rows: Sequence[Mapping[str, Any]],
     ) -> pd.DataFrame:
-        if not feature_rows:
-            contract = self.schema_service.get_contract()
-            return pd.DataFrame(columns=list(contract.input_columns_before_encoding))
-
         contract = self.schema_service.get_contract()
         expected_columns = list(contract.input_columns_before_encoding)
-        dtype_map = self.dataset_service.get_feature_dtypes(expected_columns)
+        if not feature_rows:
+            return pd.DataFrame(columns=expected_columns)
 
         normalized_rows: list[dict[str, Any]] = []
         extra_columns_seen: set[str] = set()
@@ -85,7 +84,7 @@ class FeatureService:
                     column: self._coerce_value(
                         column,
                         feature_row.get(column),
-                        dtype_map[column],
+                        contract.feature_dtypes[column],
                     )
                     for column in expected_columns
                 }
@@ -99,14 +98,16 @@ class FeatureService:
 
         return pd.DataFrame(normalized_rows, columns=expected_columns)
 
-    def _coerce_value(self, column: str, value: Any, dtype: Any) -> Any:
+    def _coerce_value(self, column: str, value: Any, dtype_spec: str) -> Any:
         contract = self.schema_service.get_contract()
         if value is None:
             return None
         if column in contract.categorical_columns:
             return str(value)
+
+        normalized_dtype = dtype_spec.lower()
         try:
-            if is_integer_dtype(dtype):
+            if normalized_dtype.startswith("int"):
                 return int(value)
             return float(value)
         except (TypeError, ValueError) as exc:

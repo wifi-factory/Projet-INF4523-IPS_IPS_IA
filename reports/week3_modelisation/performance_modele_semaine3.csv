@@ -1,0 +1,6 @@
+modele,split,rows,accuracy,balanced_accuracy,precision_suspect,recall_suspect,f1_suspect,false_positive_rate,roc_auc_suspect
+random_forest_lab_v2,train,15678,0.999936,0.999936,1.0,0.999872,0.999936,0.0,1.0
+random_forest_lab_v2,validation,9227,0.998699,0.998806,0.999805,0.997855,0.998829,0.000244,0.999998
+random_forest_lab_v2,test,8373,0.999522,0.999482,0.999367,0.999789,0.999578,0.000824,0.999997
+baseline_v1,validation,9227,0.724829,0.693428,0.674858,0.974459,0.797447,0.587604,0.981655
+baseline_v1,test,8373,0.794697,0.76775,0.742949,0.973807,0.842856,0.438307,0.980051
