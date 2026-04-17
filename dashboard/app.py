@@ -14,7 +14,6 @@ from dashboard.components.cartes import load_dashboard_css, render_sidebar_brand
 from dashboard.components.alerte_live import render_recent_alert_sidebar_panel
 from dashboard.components.pilotage_runtime import render_runtime_sidebar_panel
 from dashboard.config import get_dashboard_settings
-from dashboard.utils.rafraichissement import fragment_interval
 
 
 settings = get_dashboard_settings()
@@ -42,17 +41,7 @@ navigation = st.navigation(
 
 with st.sidebar:
     render_sidebar_brand(settings)
-
-    @st.fragment(run_every=fragment_interval(settings.refresh_seconds))
-    def render_sidebar_runtime_panel() -> None:
-        render_runtime_sidebar_panel(settings)
-
-    render_sidebar_runtime_panel()
-
-    @st.fragment(run_every=fragment_interval(settings.alert_pulse_refresh_seconds))
-    def render_sidebar_recent_alert() -> None:
-        render_recent_alert_sidebar_panel(settings)
-
-    render_sidebar_recent_alert()
+    render_runtime_sidebar_panel(settings)
+    render_recent_alert_sidebar_panel(settings)
 
 navigation.run()

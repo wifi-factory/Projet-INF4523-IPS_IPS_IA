@@ -1,14 +1,56 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from datetime import datetime
 from html import escape
-from typing import Sequence
+from typing import Any, Mapping, Sequence
+
+import pandas as pd
 
 import streamlit as st
 
 
 def fragment_interval(refresh_seconds: int) -> str:
     return f"{int(refresh_seconds)}s"
+
+
+def _normalize_signature_source(value: Any) -> Any:
+    if isinstance(value, pd.DataFrame):
+        frame = value.copy()
+        frame = frame.where(pd.notna(frame), None)
+        return {
+            "__type__": "dataframe",
+            "columns": list(frame.columns),
+            "rows": frame.to_dict(orient="records"),
+        }
+    if isinstance(value, Mapping):
+        return {
+            str(key): _normalize_signature_source(resolved)
+            for key, resolved in sorted(value.items(), key=lambda item: str(item[0]))
+        }
+    if isinstance(value, (list, tuple)):
+        return [_normalize_signature_source(item) for item in value]
+    if isinstance(value, set):
+        return sorted(_normalize_signature_source(item) for item in value)
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    return str(value)
+
+
+def build_signature(value: Any) -> str:
+    normalized = _normalize_signature_source(value)
+    payload = json.dumps(normalized, sort_keys=True, ensure_ascii=True, default=str)
+    return hashlib.sha1(payload.encode("utf-8")).hexdigest()
+
+
+def signature_changed(key: str, value: Any) -> bool:
+    signature = build_signature(value)
+    previous = st.session_state.get(key)
+    if previous == signature:
+        return False
+    st.session_state[key] = signature
+    return True
 
 
 def ensure_option_state(key: str, options: Sequence[str], default: str | None = None) -> str:

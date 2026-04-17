@@ -1,64 +1,53 @@
-# Dashboard Live IPS IA
+# Dashboard Streamlit
 
-Cette dashboard Streamlit fournit une console live en francais au-dessus du backend IPS existant.
+Le dossier `dashboard/` contient la console live du prototype IPS IA. La
+dashboard consomme les endpoints exposes par le backend FastAPI et ne charge
+pas directement le modele.
 
-## Prerequis
+## Pages disponibles
 
-- Python 3.11 recommande
-- dependances installees via `requirements.txt`
-- backend FastAPI disponible
+- `Vue ensemble`
+- `Runtime live`
+- `Alertes`
+- `Evenements`
+- `Journal trafic`
 
-## Installation
+La sidebar fournit egalement :
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-```
+- un resume du backend et du runtime ;
+- le demarrage ou l'arret du mode live ;
+- un panneau de derniere alerte recente.
 
-## Lancer le backend
+## Lancement
 
-```powershell
-uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
-```
-
-## Lancer la dashboard
+Depuis la racine du depot :
 
 ```powershell
-streamlit run dashboard/app.py
+.\.venv\Scripts\streamlit run dashboard/app.py
 ```
 
-Le pilotage du runtime live se fait directement depuis la sidebar :
-- selection automatique de l'interface source
-- activation / arret du runtime
-- resume compact de l'etat backend et runtime
+Le backend doit etre accessible au meme moment.
 
-## Variables utiles
+## Variables d'environnement utiles
 
 - `IPS_DASHBOARD_BACKEND_URL` : URL du backend, par defaut `http://127.0.0.1:8000`
-- `IPS_DASHBOARD_REFRESH_SECONDS` : frequence de rafraichissement, par defaut `3`
-- `IPS_DASHBOARD_REQUEST_TIMEOUT_SECONDS` : timeout HTTP, par defaut `5`
-- `IPS_DASHBOARD_EVENTS_LIMIT` : volume max charge pour la page Evenements
-- `IPS_DASHBOARD_ALERTS_LIMIT` : volume max charge pour la page Alertes
-- `IPS_DASHBOARD_BLOCKING_LIMIT` : volume max charge pour les decisions de blocage
-- `IPS_DASHBOARD_LOGS_LIMIT` : volume max charge pour le journal runtime
+- `IPS_DASHBOARD_REQUEST_TIMEOUT_SECONDS` : timeout HTTP
+- `IPS_DASHBOARD_REFRESH_SECONDS` : rafraichissement principal des pages
+- `IPS_DASHBOARD_ALERT_PULSE_REFRESH_SECONDS` : cadence du panneau "derniere alerte"
+- `IPS_DASHBOARD_EVENTS_LIMIT` : taille max de la table Evenements
+- `IPS_DASHBOARD_ALERTS_LIMIT` : taille max de la page Alertes
+- `IPS_DASHBOARD_BLOCKING_LIMIT` : taille max de l'historique de blocage
+- `IPS_DASHBOARD_LOGS_LIMIT` : taille max du journal runtime
 
-## Tests utiles
-
-Validation dashboard :
-
-```powershell
-python -m pytest dashboard/tests -q
-```
-
-Validation backend live :
+## Tests
 
 ```powershell
-python -m pytest backend/tests/test_api_live.py backend/tests/test_live_capture_service.py backend/tests/test_live_runtime_service.py -q
+.\.venv\Scripts\python -m pytest dashboard/tests -q
 ```
 
 ## Limites connues
 
-- fonctionnement uniquement en mode live
-- rafraichissement silencieux par polling en arriere-plan, sans WebSocket
-- l'interface depend des endpoints live exposes par le backend
+- La dashboard repose sur du polling HTTP, pas sur des WebSocket.
+- L'affichage live depend de la finalisation des flux cote backend.
+- Les donnees visibles refletent l'etat memoire du runtime courant ; elles ne
+  constituent pas une persistance historique complete.

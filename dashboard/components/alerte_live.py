@@ -8,10 +8,12 @@ import streamlit as st
 from dashboard.config import DashboardSettings, get_dashboard_settings
 from dashboard.services.live_provider import fetch_recent_alert_payload
 from dashboard.utils.formatage import format_score, format_timestamp
+from dashboard.utils.rafraichissement import fragment_interval
 
 
 ALERT_CURSOR_KEY = "sidebar_recent_alert_cursor"
 ALERT_LAST_ID_KEY = "sidebar_recent_alert_id"
+ALERT_LAST_UI_LATENCY_KEY = "sidebar_recent_alert_ui_latency_ms"
 
 
 def _now_iso() -> str:
@@ -41,74 +43,93 @@ def render_recent_alert_sidebar_panel(
     settings: DashboardSettings | None = None,
 ) -> None:
     resolved_settings = settings or get_dashboard_settings()
-    since = st.session_state.get(ALERT_CURSOR_KEY)
-    payload = fetch_recent_alert_payload(resolved_settings, since=since)
 
-    if payload.backend_error:
-        st.caption(f"Flux alertes indisponible : {payload.backend_error}")
+    @st.fragment(run_every=fragment_interval(resolved_settings.alert_pulse_refresh_seconds))
+    def render_recent_alert_sidebar_live() -> None:
+        since = st.session_state.get(ALERT_CURSOR_KEY)
+        payload = fetch_recent_alert_payload(resolved_settings, since=since)
+        latest_alert = payload.latest_alert
 
-    latest_alert = payload.latest_alert
-    if latest_alert is None:
+        if latest_alert is None:
+            if payload.backend_error:
+                st.caption(f"Flux alertes indisponible : {payload.backend_error}")
+            st.markdown(
+                """
+                <div class="sidebar-runtime-card">
+                  <div class="sidebar-runtime-card__title">Derniere alerte live</div>
+                  <div class="sidebar-runtime-card__subtitle">En attente d'une premiere alerte.</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            return
+
+        latest_id = str(latest_alert.get("alert_id") or "")
+        previous_id = str(st.session_state.get(ALERT_LAST_ID_KEY) or "")
+        is_new_alert = bool(
+            latest_id and latest_id != previous_id and payload.new_alert_count > 0
+        )
+
+        cursor_value = latest_alert.get("alert_created_at") or latest_alert.get(
+            "timestamp"
+        )
+        if cursor_value:
+            st.session_state[ALERT_CURSOR_KEY] = str(cursor_value)
+
+        if latest_id and latest_id != previous_id:
+            st.session_state[ALERT_LAST_UI_LATENCY_KEY] = _latency_ms(
+                payload.api_exposed_at,
+                _now_iso(),
+            )
+            st.session_state[ALERT_LAST_ID_KEY] = latest_id
+
+        api_to_ui_ms = st.session_state.get(ALERT_LAST_UI_LATENCY_KEY)
+
+        title = "Nouvelle alerte live" if is_new_alert else "Derniere alerte live"
+        severity = str(latest_alert.get("severity") or "-").upper()
+        attack_type = str(latest_alert.get("attack_type") or "-")
+        src_ip = str(latest_alert.get("src_ip") or "-")
+        dst_ip = str(latest_alert.get("dst_ip") or "-")
+        risk_score = format_score(latest_alert.get("risk_score"))
+        created_at = latest_alert.get("alert_created_at") or latest_alert.get(
+            "timestamp"
+        )
+
+        if payload.backend_error:
+            st.caption(f"Flux alertes indisponible : {payload.backend_error}")
         st.markdown(
-            """
+            f"""
             <div class="sidebar-runtime-card">
-              <div class="sidebar-runtime-card__title">Derniere alerte live</div>
-              <div class="sidebar-runtime-card__subtitle">En attente d'une premiere alerte.</div>
+              <div class="sidebar-runtime-card__title">{escape(title)}</div>
+              <div class="sidebar-runtime-card__subtitle">{escape(severity)} | {escape(attack_type)}</div>
+              <div class="sidebar-runtime-summary">
+                <div class="sidebar-runtime-summary__row">
+                  <span>Source</span>
+                  <strong class="sidebar-runtime-summary__value">{escape(src_ip)}</strong>
+                </div>
+                <div class="sidebar-runtime-summary__row">
+                  <span>Destination</span>
+                  <strong class="sidebar-runtime-summary__value">{escape(dst_ip)}</strong>
+                </div>
+                <div class="sidebar-runtime-summary__row">
+                  <span>Score</span>
+                  <strong class="sidebar-runtime-summary__value">{escape(risk_score)}</strong>
+                </div>
+                <div class="sidebar-runtime-summary__row">
+                  <span>Heure</span>
+                  <strong class="sidebar-runtime-summary__value">{escape(format_timestamp(created_at))}</strong>
+                </div>
+              </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        return
 
-    latest_id = str(latest_alert.get("alert_id") or "")
-    previous_id = str(st.session_state.get(ALERT_LAST_ID_KEY) or "")
-    is_new_alert = bool(latest_id and latest_id != previous_id and payload.new_alert_count > 0)
+        st.caption(
+            "Latence finalisation -> alerte : "
+            f"{_format_latency(latest_alert.get('latency_from_finalization_ms'))} | "
+            "API -> affichage : "
+            f"{_format_latency(api_to_ui_ms)}"
+        )
 
-    cursor_value = latest_alert.get("alert_created_at") or latest_alert.get("timestamp")
-    if cursor_value:
-        st.session_state[ALERT_CURSOR_KEY] = str(cursor_value)
-    if latest_id:
-        st.session_state[ALERT_LAST_ID_KEY] = latest_id
-
-    api_to_ui_ms = _latency_ms(payload.api_exposed_at, _now_iso())
-    title = "Nouvelle alerte live" if is_new_alert else "Derniere alerte live"
-    severity = str(latest_alert.get("severity") or "-").upper()
-    attack_type = str(latest_alert.get("attack_type") or "-")
-    src_ip = str(latest_alert.get("src_ip") or "-")
-    dst_ip = str(latest_alert.get("dst_ip") or "-")
-    risk_score = format_score(latest_alert.get("risk_score"))
-    created_at = latest_alert.get("alert_created_at") or latest_alert.get("timestamp")
-
-    st.markdown(
-        f"""
-        <div class="sidebar-runtime-card">
-          <div class="sidebar-runtime-card__title">{escape(title)}</div>
-          <div class="sidebar-runtime-card__subtitle">{escape(severity)} · {escape(attack_type)}</div>
-          <div class="sidebar-runtime-summary">
-            <div class="sidebar-runtime-summary__row">
-              <span>Source</span>
-              <strong class="sidebar-runtime-summary__value">{escape(src_ip)}</strong>
-            </div>
-            <div class="sidebar-runtime-summary__row">
-              <span>Destination</span>
-              <strong class="sidebar-runtime-summary__value">{escape(dst_ip)}</strong>
-            </div>
-            <div class="sidebar-runtime-summary__row">
-              <span>Score</span>
-              <strong class="sidebar-runtime-summary__value">{escape(risk_score)}</strong>
-            </div>
-            <div class="sidebar-runtime-summary__row">
-              <span>Heure</span>
-              <strong class="sidebar-runtime-summary__value">{escape(format_timestamp(created_at))}</strong>
-            </div>
-          </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    st.caption(
-        "Latence finalisation -> alerte : "
-        f"{_format_latency(latest_alert.get('latency_from_finalization_ms'))} · "
-        "API -> affichage : "
-        f"{_format_latency(api_to_ui_ms)}"
-    )
+    render_recent_alert_sidebar_live()

@@ -15,16 +15,23 @@ from dashboard.services.live_provider import (
 )
 from dashboard.utils.rafraichissement import (
     ensure_option_state,
+    fragment_interval,
     render_background_sync_status,
 )
 
 
 NO_INTERFACE_VALUE = "__aucune_interface__"
 CACHED_INTERFACES_KEY = "sidebar_runtime_cached_interfaces"
+SEED_PAYLOAD_KEY = "sidebar_runtime_seed_payload"
 
 
 def _interface_label(interface: dict[str, object]) -> str:
-    raw = interface.get("label") or interface.get("name") or interface.get("index") or "-"
+    raw = (
+        interface.get("label")
+        or interface.get("name")
+        or interface.get("index")
+        or "-"
+    )
     return str(raw)
 
 
@@ -51,9 +58,17 @@ def _friendly_interface_label(interface: dict[str, object]) -> str:
     return _normalize_interface_display(raw)
 
 
-def _build_interface_choices(payload: RuntimeControlPayload) -> list[dict[str, str | None]]:
+def _build_interface_choices(
+    payload: RuntimeControlPayload,
+) -> list[dict[str, str | None]]:
     if not payload.interfaces:
-        return [{"display": "Aucune interface disponible", "value": None, "raw": NO_INTERFACE_VALUE}]
+        return [
+            {
+                "display": "Aucune interface disponible",
+                "value": None,
+                "raw": NO_INTERFACE_VALUE,
+            }
+        ]
 
     seen_displays: dict[str, int] = {}
     choices: list[dict[str, str | None]] = []
@@ -83,7 +98,11 @@ def _stabilize_payload(payload: RuntimeControlPayload) -> RuntimeControlPayload:
 def _sync_interface_state(payload: RuntimeControlPayload) -> str:
     choices = _build_interface_choices(payload)
     labels = [str(choice["display"]) for choice in choices]
-    value_map = {str(choice["display"]): str(choice["value"]) for choice in choices if choice["value"] is not None}
+    value_map = {
+        str(choice["display"]): str(choice["value"])
+        for choice in choices
+        if choice["value"] is not None
+    }
     st.session_state["sidebar_interface_value_map"] = value_map
 
     runtime_interface = str(payload.live_status.get("interface_name") or "").strip()
@@ -121,15 +140,21 @@ def _set_feedback(level: str, message: str) -> None:
 
 def _handle_runtime_toggle(settings: DashboardSettings) -> None:
     desired_running = bool(st.session_state.get("sidebar_runtime_toggle"))
-    previous_running = bool(st.session_state.get("sidebar_runtime_backend_running", False))
+    previous_running = bool(
+        st.session_state.get("sidebar_runtime_backend_running", False)
+    )
     selected_interface = str(st.session_state.get("sidebar_interface_source", "")).strip()
     interface_value_map = st.session_state.get("sidebar_interface_value_map", {})
-    selected_interface_value = str(interface_value_map.get(selected_interface, "")).strip()
+    selected_interface_value = str(
+        interface_value_map.get(selected_interface, "")
+    ).strip()
 
     try:
         if desired_running:
             if not selected_interface_value:
-                raise RuntimeError("Aucune interface reseau disponible pour demarrer la capture.")
+                raise RuntimeError(
+                    "Aucune interface reseau disponible pour demarrer la capture."
+                )
             start_live_capture(
                 interface_name=selected_interface_value,
                 capture_filter=None,
@@ -194,25 +219,25 @@ def _render_status_card(payload: RuntimeControlPayload, selected_interface: str)
     )
 
 
-def render_runtime_sidebar_panel(settings: DashboardSettings | None = None) -> None:
-    resolved_settings = settings or get_dashboard_settings()
-    payload = _stabilize_payload(fetch_runtime_control_payload(resolved_settings))
-    choices = _build_interface_choices(payload)
-    labels = [str(choice["display"]) for choice in choices]
-    selected_interface = _sync_interface_state(payload)
-    _sync_toggle_state(payload)
-
+def _render_runtime_status_panel(
+    payload: RuntimeControlPayload,
+    selected_interface: str,
+    refresh_seconds: int,
+) -> None:
     _render_status_card(payload, selected_interface)
     render_background_sync_status(
         scope_key="sidebar_runtime",
-        refresh_seconds=resolved_settings.refresh_seconds,
+        refresh_seconds=refresh_seconds,
         backend_ok=payload.backend_ok,
     )
 
     if payload.backend_error:
         st.error(f"Backend indisponible : {payload.backend_error}")
     elif payload.interfaces_error:
-        st.caption(f"Rafraichissement des interfaces indisponible : {payload.interfaces_error}")
+        st.caption(
+            "Rafraichissement des interfaces indisponible : "
+            f"{payload.interfaces_error}"
+        )
 
     feedback = st.session_state.get("sidebar_runtime_feedback")
     if feedback:
@@ -222,23 +247,51 @@ def render_runtime_sidebar_panel(settings: DashboardSettings | None = None) -> N
         else:
             st.error(message)
 
-    backend_running = bool(payload.live_status.get("running"))
+
+def render_runtime_sidebar_panel(settings: DashboardSettings | None = None) -> None:
+    resolved_settings = settings or get_dashboard_settings()
+    initial_payload = _stabilize_payload(fetch_runtime_control_payload(resolved_settings))
+    st.session_state[SEED_PAYLOAD_KEY] = initial_payload
+
+    choices = _build_interface_choices(initial_payload)
+    labels = [str(choice["display"]) for choice in choices]
+    _sync_interface_state(initial_payload)
+    _sync_toggle_state(initial_payload)
+
+    @st.fragment(run_every=fragment_interval(resolved_settings.refresh_seconds))
+    def render_runtime_sidebar_live() -> None:
+        seeded_payload = st.session_state.pop(SEED_PAYLOAD_KEY, None)
+        payload = seeded_payload or fetch_runtime_control_payload(resolved_settings)
+        payload = _stabilize_payload(payload)
+        _sync_toggle_state(payload)
+        selected_interface = str(
+            st.session_state.get("sidebar_interface_source", labels[0])
+        )
+        _render_runtime_status_panel(
+            payload=payload,
+            selected_interface=selected_interface,
+            refresh_seconds=resolved_settings.refresh_seconds,
+        )
+
+    render_runtime_sidebar_live()
+
+    backend_running = bool(initial_payload.live_status.get("running"))
     no_interfaces = len(choices) == 1 and choices[0]["value"] is None
 
     st.selectbox(
         "Interface source",
         labels,
         key="sidebar_interface_source",
-        disabled=not payload.backend_ok or no_interfaces or backend_running,
+        disabled=not initial_payload.backend_ok or no_interfaces or backend_running,
     )
     st.toggle(
         "Runtime actif",
         key="sidebar_runtime_toggle",
         on_change=_handle_runtime_toggle,
         args=(resolved_settings,),
-        disabled=not payload.backend_ok or (no_interfaces and not backend_running),
+        disabled=not initial_payload.backend_ok or (no_interfaces and not backend_running),
         help="Active ou arrete la capture et le traitement live.",
     )
 
-    if no_interfaces and payload.backend_ok and not backend_running:
+    if no_interfaces and initial_payload.backend_ok and not backend_running:
         st.caption("Aucune interface reseau detectee pour demarrer le runtime.")

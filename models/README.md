@@ -1,14 +1,29 @@
-# Models
+# Modeles
 
-This directory is reserved for local copies of the trained model and metadata.
+Le dossier `models/` contient les artefacts ML charges par defaut au demarrage
+du backend.
 
-By default, the backend loads the artifacts stored in this directory.
+## Fichiers principaux
 
-`random_forest_lab_v2_metadata.json` now includes a portable runtime contract:
+- `random_forest_lab_v2.joblib` : pipeline `scikit-learn` versionne
+- `random_forest_lab_v2_metadata.json` : contrat du modele et informations de
+  calibration
 
-- the ordered input columns expected by the model;
-- the runtime feature dtypes used to coerce live payloads;
-- relative dataset paths for replay or offline summaries.
+## Ce que contiennent les metadata
 
-This means live inference no longer depends on the training parquet splits being
-present locally, as long as the model and metadata stay together.
+- type du modele final ;
+- cible `label_binary` et label positif `suspect` ;
+- 31 colonnes d'entree avant encodage ;
+- hyperparametres retenus du `RandomForestClassifier` ;
+- types runtime des features pour la coercition live ;
+- chemins relatifs vers les parquets de `train`, `validation` et `test`.
+
+## Point important
+
+Le backend peut charger le modele et ses metadata sans avoir acces aux parquets.
+Cette portabilite couvre la prediction live et `POST /detect/flow`.
+
+Les parquets restent necessaires pour :
+
+- `GET /datasets/summary`
+- `POST /replay/run`

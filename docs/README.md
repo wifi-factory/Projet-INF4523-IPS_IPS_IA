@@ -1,10 +1,19 @@
-# Docs
+# Documentation locale
 
-This directory can host local copies of academic deliverables and reports for
-the repository. The implementation was grounded on the provided PDFs and keeps
-the runtime logic independent from them.
+Le dossier `docs/` regroupe les notes d'ingenierie conservees avec le code.
 
-Additional local engineering notes:
+## Contenu actuel
 
-- `lab_v2_strategy.md`: current lab network state, addressing plan, and the
-  scenario matrix recommended for dataset `lab_v2` and the academic live demo.
+- `lab_v2_strategy.md` : note de travail sur le lab `PentestNet`, les roles des
+  machines et la collecte du dataset `lab_v2`.
+
+## Portee
+
+Ces documents sont utiles pour comprendre la construction du prototype, mais
+ils ne remplacent pas la lecture des README et du code pour l'etat courant du
+depot.
+
+En particulier, `lab_v2_strategy.md` contient des observations datees de mars
+2026 sur l'etat du lab. Il faut le lire comme une note d'ingenierie historisee,
+pas comme une garantie que toutes les VMs et toutes les adresses soient encore
+dans le meme etat aujourd'hui.
